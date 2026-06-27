@@ -6,8 +6,17 @@ import { createClient } from "@/lib/supabase/client";
 type Mode = "signin" | "signup" | "sent";
 
 function redirectTarget() {
-  if (typeof window === "undefined") return "/";
-  return new URLSearchParams(window.location.search).get("redirect") ?? "/";
+  if (typeof window === "undefined") return "/dashboard";
+  return (
+    new URLSearchParams(window.location.search).get("redirect") ?? "/dashboard"
+  );
+}
+
+function initialMode(): "signin" | "signup" {
+  if (typeof window === "undefined") return "signin";
+  return new URLSearchParams(window.location.search).get("mode") === "signup"
+    ? "signup"
+    : "signin";
 }
 
 function passwordStrength(pw: string) {
@@ -27,7 +36,7 @@ function passwordStrength(pw: string) {
 
 export default function LoginPage() {
   const supabase = createClient();
-  const [mode, setMode] = useState<Mode>("signin");
+  const [mode, setMode] = useState<Mode>(initialMode);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -87,7 +96,9 @@ export default function LoginPage() {
       return;
     }
     setError(null);
-    const { error } = await supabase.auth.resetPasswordForEmail(email.trim());
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/auth/callback?redirect=/reset-password`,
+    });
     if (error) setError(error.message);
     else setMode("sent");
   };

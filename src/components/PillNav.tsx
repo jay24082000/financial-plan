@@ -13,7 +13,7 @@ import { BrandMark } from "./BrandMark";
 import { ProfileBadge } from "./ProfileBadge";
 
 const NAV = [
-  { href: "/", label: "Dashboard", Icon: LayoutGrid },
+  { href: "/dashboard", label: "Dashboard", Icon: LayoutGrid },
   { href: "/retirement", label: "Retirement", Icon: Clock },
   { href: "/calculator", label: "Calculator", Icon: Calculator },
   { href: "/markets", label: "Markets", Icon: TrendingUp },
@@ -23,7 +23,12 @@ const NAV = [
 export function PillNav() {
   const pathname = usePathname();
 
-  if (pathname.startsWith("/login") || pathname.startsWith("/auth")) {
+  if (
+    pathname === "/" ||
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/auth") ||
+    pathname.startsWith("/reset-password")
+  ) {
     return null;
   }
 

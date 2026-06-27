@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 const PROTECTED = (path: string) =>
-  path === "/" || path.startsWith("/portfolio");
+  path.startsWith("/dashboard") || path.startsWith("/portfolio");
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -43,7 +43,7 @@ export async function updateSession(request: NextRequest) {
 
   if (user && path === "/login") {
     const url = request.nextUrl.clone();
-    url.pathname = "/";
+    url.pathname = "/dashboard";
     url.search = "";
     return NextResponse.redirect(url);
   }
