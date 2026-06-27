@@ -8,7 +8,7 @@ import { StatCard } from "@/components/StatCard";
 import { NetWorthChart } from "@/components/NetWorthChart";
 import { AssetIcon, CLASS_COLOR } from "@/components/AssetIcon";
 import { Disclaimer } from "@/components/Disclaimer";
-import { usePortfolio } from "@/store/portfolio";
+import { useHoldings } from "@/hooks/useHoldings";
 import { useAllPrices } from "@/hooks/useAllPrices";
 import { useMounted } from "@/hooks/useMounted";
 import { computeTotals, CLASS_ORDER } from "@/lib/portfolio-calc";
@@ -39,7 +39,7 @@ const CLASS_LABEL: Record<string, string> = {
 
 export default function DashboardPage() {
   const mounted = useMounted();
-  const holdings = usePortfolio((s) => s.holdings);
+  const { holdings } = useHoldings();
   const { prices } = useAllPrices();
   const [range, setRange] = useState<(typeof RANGES)[number]>("1Y");
 

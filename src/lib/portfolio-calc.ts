@@ -1,5 +1,4 @@
-import type { Holding } from "@/store/portfolio";
-import type { AssetType } from "./types";
+import type { Holding, AssetType } from "./types";
 
 export interface PricedHolding extends Holding {
   price: number;

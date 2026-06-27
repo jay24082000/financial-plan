@@ -7,7 +7,7 @@ import { PageHeader, PageShell } from "@/components/PageHeader";
 import { AssetIcon, CLASS_COLOR } from "@/components/AssetIcon";
 import { DonutChart } from "@/components/DonutChart";
 import { Disclaimer } from "@/components/Disclaimer";
-import { usePortfolio } from "@/store/portfolio";
+import { useHoldings } from "@/hooks/useHoldings";
 import { useAllPrices } from "@/hooks/useAllPrices";
 import { useMounted } from "@/hooks/useMounted";
 import { computeTotals, CLASS_ORDER } from "@/lib/portfolio-calc";
@@ -24,9 +24,7 @@ const CLASS_LABEL: Record<string, string> = {
 
 export default function PortfolioPage() {
   const mounted = useMounted();
-  const holdings = usePortfolio((s) => s.holdings);
-  const addHolding = usePortfolio((s) => s.addHolding);
-  const removeHolding = usePortfolio((s) => s.removeHolding);
+  const { holdings, addHolding, removeHolding } = useHoldings();
   const { prices } = useAllPrices();
   const [showAdd, setShowAdd] = useState(false);
 
@@ -64,107 +62,107 @@ export default function PortfolioPage() {
         <div className="mb-[18px] grid gap-[18px] sm:grid-cols-3">
           <Card>
             <CardLabel>Total value</CardLabel>
-              <div className="mer-num mt-1.5 text-[26px] font-semibold">
-                {formatUSD(totals.holdingsValue)}
-              </div>
-            </Card>
-            <Card>
-              <CardLabel>Total P/L</CardLabel>
-              <div
-                className="mer-num mt-1.5 text-[26px] font-semibold"
-                style={{ color: gainPos ? "#0e9466" : "#cf4842" }}
-              >
-                {formatSignedUSD(totals.totalGain)}
-              </div>
-              <div
-                className="mer-num text-[13px] font-semibold"
-                style={{ color: gainPos ? "#0e9466" : "#cf4842" }}
-              >
-                {formatPercent(totals.totalGainPct)}
-              </div>
-            </Card>
-            <Card>
-              <CardLabel>Today</CardLabel>
-              <div
-                className="mer-num mt-1.5 text-[26px] font-semibold"
-                style={{ color: totals.dayChange >= 0 ? "#0e9466" : "#cf4842" }}
-              >
-                {formatSignedUSD(totals.dayChange)}
-              </div>
-              <div
-                className="mer-num text-[13px] font-semibold"
-                style={{ color: totals.dayChange >= 0 ? "#0e9466" : "#cf4842" }}
-              >
-                {formatPercent(totals.dayChangePct)}
-              </div>
-            </Card>
+            <div className="mer-num mt-1.5 text-[26px] font-semibold">
+              {formatUSD(totals.holdingsValue)}
+            </div>
+          </Card>
+          <Card>
+            <CardLabel>Total P/L</CardLabel>
+            <div
+              className="mer-num mt-1.5 text-[26px] font-semibold"
+              style={{ color: gainPos ? "#0e9466" : "#cf4842" }}
+            >
+              {formatSignedUSD(totals.totalGain)}
+            </div>
+            <div
+              className="mer-num text-[13px] font-semibold"
+              style={{ color: gainPos ? "#0e9466" : "#cf4842" }}
+            >
+              {formatPercent(totals.totalGainPct)}
+            </div>
+          </Card>
+          <Card>
+            <CardLabel>Today</CardLabel>
+            <div
+              className="mer-num mt-1.5 text-[26px] font-semibold"
+              style={{ color: totals.dayChange >= 0 ? "#0e9466" : "#cf4842" }}
+            >
+              {formatSignedUSD(totals.dayChange)}
+            </div>
+            <div
+              className="mer-num text-[13px] font-semibold"
+              style={{ color: totals.dayChange >= 0 ? "#0e9466" : "#cf4842" }}
+            >
+              {formatPercent(totals.dayChangePct)}
+            </div>
+          </Card>
         </div>
 
         <div className="grid items-start gap-[18px] lg:grid-cols-[1.7fr_1fr]">
           <Card className="!p-0 overflow-hidden">
-          <div className="hidden grid-cols-[1.6fr_1fr_1fr_1fr_1.2fr_0.4fr] gap-2 border-b border-[#f0f0e8] px-5 py-3 text-[11.5px] font-semibold uppercase tracking-wide text-[#9aa0a8] md:grid">
-            <span>Asset</span>
-            <span className="text-right">Qty</span>
-            <span className="text-right">Avg cost</span>
-            <span className="text-right">Price</span>
-            <span className="text-right">Value / P&L</span>
-            <span></span>
-          </div>
-          {totals.priced.map((h) => {
-            const pos = h.gain >= 0;
-            return (
-              <div
-                key={h.id}
-                className="grid grid-cols-[1.6fr_1fr_1fr_1fr_1.2fr_0.4fr] items-center gap-2 border-b border-[#f4f4ee] px-5 py-3.5 last:border-0"
-              >
-                <div className="flex items-center gap-3">
-                  <AssetIcon type={h.type} label={h.label} size={34} />
-                  <div>
-                    <div className="text-[14px] font-bold">{h.label}</div>
-                    <div className="text-[12px] text-[#9aa0a8]">
-                      {CLASS_LABEL[h.type]}
+            <div className="hidden grid-cols-[1.6fr_1fr_1fr_1fr_1.2fr_0.4fr] gap-2 border-b border-[#f0f0e8] px-5 py-3 text-[11.5px] font-semibold uppercase tracking-wide text-[#9aa0a8] md:grid">
+              <span>Asset</span>
+              <span className="text-right">Qty</span>
+              <span className="text-right">Avg cost</span>
+              <span className="text-right">Price</span>
+              <span className="text-right">Value / P&L</span>
+              <span></span>
+            </div>
+            {totals.priced.map((h) => {
+              const pos = h.gain >= 0;
+              return (
+                <div
+                  key={h.id}
+                  className="grid grid-cols-[1.6fr_1fr_1fr_1fr_1.2fr_0.4fr] items-center gap-2 border-b border-[#f4f4ee] px-5 py-3.5 last:border-0"
+                >
+                  <div className="flex items-center gap-3">
+                    <AssetIcon type={h.type} label={h.label} size={34} />
+                    <div>
+                      <div className="text-[14px] font-bold">{h.label}</div>
+                      <div className="text-[12px] text-[#9aa0a8]">
+                        {CLASS_LABEL[h.type]}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="mer-num text-right text-[13px]">
-                  {h.quantity}
-                </div>
-                <div className="mer-num text-right text-[13px]">
-                  {formatUSD(h.avgCost, 2)}
-                </div>
-                <div className="mer-num text-right text-[13px]">
-                  {isFinite(h.price) && h.price > 0
-                    ? formatUSD(h.price, 2)
-                    : "…"}
-                </div>
-                <div className="text-right">
-                  <div className="mer-num text-[13.5px] font-semibold">
-                    {formatUSD(h.value)}
+                  <div className="mer-num text-right text-[13px]">
+                    {h.quantity}
                   </div>
-                  <div
-                    className="mer-num text-[12px] font-semibold"
-                    style={{ color: pos ? "#0e9466" : "#cf4842" }}
-                  >
-                    {formatSignedUSD(h.gain)} ({formatPercent(h.gainPct)})
+                  <div className="mer-num text-right text-[13px]">
+                    {formatUSD(h.avgCost, 2)}
+                  </div>
+                  <div className="mer-num text-right text-[13px]">
+                    {isFinite(h.price) && h.price > 0
+                      ? formatUSD(h.price, 2)
+                      : "…"}
+                  </div>
+                  <div className="text-right">
+                    <div className="mer-num text-[13.5px] font-semibold">
+                      {formatUSD(h.value)}
+                    </div>
+                    <div
+                      className="mer-num text-[12px] font-semibold"
+                      style={{ color: pos ? "#0e9466" : "#cf4842" }}
+                    >
+                      {formatSignedUSD(h.gain)} ({formatPercent(h.gainPct)})
+                    </div>
+                  </div>
+                  <div className="flex justify-end">
+                    <button
+                      onClick={() => removeHolding(h.id)}
+                      className="rounded-lg p-2 text-[#b0b4ba] transition hover:bg-[#f6f6f2] hover:text-[#cf4842]"
+                      aria-label="Remove"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
                 </div>
-                <div className="flex justify-end">
-                  <button
-                    onClick={() => removeHolding(h.id)}
-                    className="rounded-lg p-2 text-[#b0b4ba] transition hover:bg-[#f6f6f2] hover:text-[#cf4842]"
-                    aria-label="Remove"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
+              );
+            })}
+            {totals.priced.length === 0 && (
+              <div className="px-5 py-10 text-center text-[13px] text-[#9aa0a8]">
+                No holdings yet. Click “Add holding” to start.
               </div>
-            );
-          })}
-          {totals.priced.length === 0 && (
-            <div className="px-5 py-10 text-center text-[13px] text-[#9aa0a8]">
-              No holdings yet. Click “Add holding” to start.
-            </div>
-          )}
+            )}
           </Card>
 
           <Card>

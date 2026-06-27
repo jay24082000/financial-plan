@@ -90,6 +90,27 @@ body {
   display: none;
 }
 
+.auth-input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e3e3db;
+  border-radius: 12px;
+  padding: 13px 15px;
+  font-size: 14.5px;
+  color: #1a1d21;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.auth-input::placeholder {
+  color: #a8aeb6;
+}
+.auth-input:focus {
+  border-color: #13b07a;
+  box-shadow: 0 0 0 3px rgba(19, 176, 122, 0.15);
+}
+
 .mer-range {
   -webkit-appearance: none;
   appearance: none;

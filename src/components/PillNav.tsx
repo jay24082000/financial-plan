@@ -23,6 +23,10 @@ const NAV = [
 export function PillNav() {
   const pathname = usePathname();
 
+  if (pathname.startsWith("/login") || pathname.startsWith("/auth")) {
+    return null;
+  }
+
   return (
     <header className="pointer-events-none sticky top-0 z-30 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-4 md:px-8">
       <BrandMark className="pointer-events-auto justify-self-start" />

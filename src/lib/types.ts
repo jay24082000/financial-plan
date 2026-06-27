@@ -19,6 +19,15 @@ export interface AssetMeta {
   type: AssetType;
 }
 
+export interface Holding {
+  id: string;
+  type: AssetType;
+  symbol: string;
+  label: string;
+  quantity: number;
+  avgCost: number;
+}
+
 export const CRYPTO_SYMBOLS: AssetMeta[] = [
   { symbol: "BTCUSDT", display: "BTC", name: "Bitcoin", type: "crypto" },
   { symbol: "ETHUSDT", display: "ETH", name: "Ethereum", type: "crypto" },
