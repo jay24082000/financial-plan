@@ -1,8 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED = (path: string) =>
-  path.startsWith("/dashboard") || path.startsWith("/portfolio");
+const isPublic = (path: string) =>
+  path === "/" ||
+  path.startsWith("/login") ||
+  path.startsWith("/auth") ||
+  path.startsWith("/reset-password");
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -34,7 +37,7 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
 
-  if (!user && PROTECTED(path)) {
+  if (!user && !isPublic(path)) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.searchParams.set("redirect", path);
@@ -46,6 +49,13 @@ export async function updateSession(request: NextRequest) {
     url.pathname = "/dashboard";
     url.search = "";
     return NextResponse.redirect(url);
+  }
+
+  if (!isPublic(path)) {
+    response.headers.set(
+      "Cache-Control",
+      "no-store, max-age=0, must-revalidate",
+    );
   }
 
   return response;

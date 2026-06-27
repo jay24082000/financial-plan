@@ -194,7 +194,7 @@ export default async function LandingPage() {
         <div className="flex items-center gap-2.5">
           <Logo />
           <span className="text-[18px] font-extrabold tracking-tight">
-            Meridian
+            Stax
           </span>
         </div>
         <nav className="hidden gap-[30px] text-[14px] font-semibold text-[#646b74] md:flex">
@@ -424,7 +424,7 @@ export default async function LandingPage() {
             Five tools. One calm dashboard.
           </h2>
           <p className="mt-4 text-[16.5px] leading-relaxed text-[#5e646d]">
-            From your first deposit to your retirement date, Meridian keeps the
+            From your first deposit to your retirement date, Stax keeps the
             whole picture in focus — no spreadsheets, no guesswork.
           </p>
         </div>
@@ -461,7 +461,7 @@ export default async function LandingPage() {
               Know exactly when you can retire.
             </h2>
             <p className="my-[18px] max-w-[430px] text-[16.5px] leading-relaxed text-[#a7aeb8]">
-              Set a target, and Meridian projects your savings to retirement age
+              Set a target, and Stax projects your savings to retirement age
               with a single, honest answer: are you on track?
             </p>
             <div className="flex flex-col gap-3.5">
@@ -733,7 +733,7 @@ export default async function LandingPage() {
           <p className="mx-auto mb-8 mt-4 max-w-[440px] text-[17px] leading-relaxed text-[#a7aeb8]">
             {profile
               ? "Your dashboard is ready with live prices and your latest portfolio."
-              : "Build a calmer, clearer financial future with Meridian. Free to start, no card required."}
+              : "Build a calmer, clearer financial future with Stax. Free to start, no card required."}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
@@ -760,7 +760,7 @@ export default async function LandingPage() {
             <div className="mb-3.5 flex items-center gap-2.5">
               <Logo size={28} />
               <span className="text-[17px] font-extrabold tracking-tight">
-                Meridian
+                Stax
               </span>
             </div>
             <p className="max-w-[260px] text-[13.5px] leading-relaxed text-[#878d96]">
@@ -797,10 +797,10 @@ export default async function LandingPage() {
         <div className="border-t border-[#efefe8]">
           <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-4 px-6 py-5">
             <span className="text-[12.5px] text-[#9aa0a8]">
-              © 2026 Meridian Finance, Inc. All rights reserved.
+              © 2026 Stax Finance, Inc. All rights reserved.
             </span>
             <span className="max-w-[560px] text-[12px] leading-snug text-[#a8aeb6]">
-              Meridian is not a broker-dealer or investment adviser. For
+              Stax is not a broker-dealer or investment adviser. For
               informational purposes only; not financial advice.
             </span>
           </div>

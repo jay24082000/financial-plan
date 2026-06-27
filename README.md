@@ -1,4 +1,4 @@
-# Meridian — Financial Planning Web App
+# Stax — Financial Planning Web App
 
 Personal finance planning: retirement projections, compound-interest and
 investment calculators, realtime market prices (crypto, US stocks, gold, FX),
@@ -44,5 +44,5 @@ npm run dev
 
 ## Disclaimer
 
-Meridian provides **estimates for educational purposes only** — not financial or
+Stax provides **estimates for educational purposes only** — not financial or
 investment advice. Market data may be delayed (especially outside trading hours).

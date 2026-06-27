@@ -10,18 +10,31 @@ interface ChartMeta {
   longName?: string;
 }
 
+interface ChartResult {
+  meta?: ChartMeta;
+  indicators?: { quote?: { close?: (number | null)[] }[] };
+}
+
 interface ChartResponse {
   chart?: {
-    result?: { meta?: ChartMeta }[];
+    result?: ChartResult[];
     error?: unknown;
   };
+}
+
+function downsample(values: number[], target = 24): number[] {
+  if (values.length <= target) return values;
+  const step = values.length / target;
+  const out: number[] = [];
+  for (let i = 0; i < target; i++) out.push(values[Math.floor(i * step)]);
+  return out;
 }
 
 async function fetchOne(symbol: string): Promise<Partial<Quote> | null> {
   const url =
     "https://query1.finance.yahoo.com/v8/finance/chart/" +
     encodeURIComponent(symbol) +
-    "?range=1d&interval=1d";
+    "?range=1d&interval=15m";
 
   const res = await fetch(url, {
     headers: {
@@ -35,7 +48,8 @@ async function fetchOne(symbol: string): Promise<Partial<Quote> | null> {
   if (!res.ok) return null;
 
   const data = (await res.json()) as ChartResponse;
-  const meta = data.chart?.result?.[0]?.meta;
+  const result = data.chart?.result?.[0];
+  const meta = result?.meta;
   if (!meta || meta.regularMarketPrice === undefined) return null;
 
   const price = meta.regularMarketPrice;
@@ -43,12 +57,17 @@ async function fetchOne(symbol: string): Promise<Partial<Quote> | null> {
   const changePercent =
     prevClose > 0 ? ((price - prevClose) / prevClose) * 100 : 0;
 
+  const closes = (result?.indicators?.quote?.[0]?.close ?? []).filter(
+    (v): v is number => typeof v === "number" && isFinite(v),
+  );
+
   return {
     symbol,
     price,
     changePercent,
     currency: meta.currency ?? "USD",
     name: meta.shortName ?? meta.longName ?? symbol,
+    spark: downsample(closes),
   };
 }
 

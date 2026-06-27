@@ -10,6 +10,7 @@ export interface Quote {
   price: number;
   changePercent: number;
   currency: string;
+  spark: number[];
 }
 
 export interface AssetMeta {

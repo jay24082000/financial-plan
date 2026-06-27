@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Plus, X, Trash2 } from "lucide-react";
+import { Plus, X, Trash2, Pencil } from "lucide-react";
 import { Card, CardLabel, SectionTitle } from "@/components/Card";
 import { PageHeader, PageShell } from "@/components/PageHeader";
 import { AssetIcon, CLASS_COLOR } from "@/components/AssetIcon";
@@ -24,9 +24,17 @@ const CLASS_LABEL: Record<string, string> = {
 
 export default function PortfolioPage() {
   const mounted = useMounted();
-  const { holdings, addHolding, removeHolding } = useHoldings();
+  const { holdings, addHolding, updateHolding, removeHolding } = useHoldings();
   const { prices } = useAllPrices();
   const [showAdd, setShowAdd] = useState(false);
+  const [editing, setEditing] = useState<{
+    id: string;
+    type: (typeof ALL_SYMBOLS)[number]["type"];
+    symbol: string;
+    label: string;
+    quantity: number;
+    avgCost: number;
+  } | null>(null);
 
   const totals = useMemo(
     () => computeTotals(holdings, prices),
@@ -100,7 +108,7 @@ export default function PortfolioPage() {
 
         <div className="grid items-start gap-[18px] lg:grid-cols-[1.7fr_1fr]">
           <Card className="!p-0 overflow-hidden">
-            <div className="hidden grid-cols-[1.6fr_1fr_1fr_1fr_1.2fr_0.4fr] gap-2 border-b border-[#f0f0e8] px-5 py-3 text-[11.5px] font-semibold uppercase tracking-wide text-[#9aa0a8] md:grid">
+            <div className="hidden grid-cols-[1.6fr_1fr_1fr_1fr_1.2fr_0.7fr] gap-2 border-b border-[#f0f0e8] px-5 py-3 text-[11.5px] font-semibold uppercase tracking-wide text-[#9aa0a8] md:grid">
               <span>Asset</span>
               <span className="text-right">Qty</span>
               <span className="text-right">Avg cost</span>
@@ -113,7 +121,7 @@ export default function PortfolioPage() {
               return (
                 <div
                   key={h.id}
-                  className="grid grid-cols-[1.6fr_1fr_1fr_1fr_1.2fr_0.4fr] items-center gap-2 border-b border-[#f4f4ee] px-5 py-3.5 last:border-0"
+                  className="grid grid-cols-[1.6fr_1fr_1fr_1fr_1.2fr_0.7fr] items-center gap-2 border-b border-[#f4f4ee] px-5 py-3.5 last:border-0"
                 >
                   <div className="flex items-center gap-3">
                     <AssetIcon type={h.type} label={h.label} size={34} />
@@ -146,7 +154,23 @@ export default function PortfolioPage() {
                       {formatSignedUSD(h.gain)} ({formatPercent(h.gainPct)})
                     </div>
                   </div>
-                  <div className="flex justify-end">
+                  <div className="flex justify-end gap-0.5">
+                    <button
+                      onClick={() =>
+                        setEditing({
+                          id: h.id,
+                          type: h.type,
+                          symbol: h.symbol,
+                          label: h.label,
+                          quantity: h.quantity,
+                          avgCost: h.avgCost,
+                        })
+                      }
+                      className="rounded-lg p-2 text-[#b0b4ba] transition hover:bg-[#f6f6f2] hover:text-[#3a4048]"
+                      aria-label="Edit"
+                    >
+                      <Pencil size={15} />
+                    </button>
                     <button
                       onClick={() => removeHolding(h.id)}
                       className="rounded-lg p-2 text-[#b0b4ba] transition hover:bg-[#f6f6f2] hover:text-[#cf4842]"
@@ -200,11 +224,21 @@ export default function PortfolioPage() {
       </PageShell>
 
       {showAdd && (
-        <AddHoldingModal
+        <HoldingModal
           onClose={() => setShowAdd(false)}
-          onAdd={(h) => {
+          onSubmit={(h) => {
             addHolding(h);
             setShowAdd(false);
+          }}
+        />
+      )}
+      {editing && (
+        <HoldingModal
+          initial={editing}
+          onClose={() => setEditing(null)}
+          onSubmit={(h) => {
+            updateHolding(editing.id, h);
+            setEditing(null);
           }}
         />
       )}
@@ -213,12 +247,14 @@ export default function PortfolioPage() {
   );
 }
 
-function AddHoldingModal({
+function HoldingModal({
+  initial,
   onClose,
-  onAdd,
+  onSubmit,
 }: {
+  initial?: { symbol: string; quantity: number; avgCost: number };
   onClose: () => void;
-  onAdd: (h: {
+  onSubmit: (h: {
     type: (typeof ALL_SYMBOLS)[number]["type"];
     symbol: string;
     label: string;
@@ -226,9 +262,16 @@ function AddHoldingModal({
     avgCost: number;
   }) => void;
 }) {
-  const [symbol, setSymbol] = useState(ALL_SYMBOLS[0].symbol);
-  const [quantity, setQuantity] = useState("");
-  const [avgCost, setAvgCost] = useState("");
+  const isEdit = !!initial;
+  const [symbol, setSymbol] = useState(
+    initial?.symbol ?? ALL_SYMBOLS[0].symbol,
+  );
+  const [quantity, setQuantity] = useState(
+    initial ? String(initial.quantity) : "",
+  );
+  const [avgCost, setAvgCost] = useState(
+    initial ? String(initial.avgCost) : "",
+  );
 
   const meta = metaForSymbol(symbol);
   const valid = meta && Number(quantity) > 0 && Number(avgCost) > 0;
@@ -243,7 +286,9 @@ function AddHoldingModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-[18px] font-extrabold">Add holding</h2>
+          <h2 className="text-[18px] font-extrabold">
+            {isEdit ? "Edit holding" : "Add holding"}
+          </h2>
           <button
             onClick={onClose}
             className="rounded-lg p-1.5 text-[#9aa0a8] hover:bg-[#f6f6f2]"
@@ -300,7 +345,7 @@ function AddHoldingModal({
             disabled={!valid}
             onClick={() => {
               if (!meta) return;
-              onAdd({
+              onSubmit({
                 type: meta.type,
                 symbol: meta.symbol,
                 label: meta.display,
@@ -310,7 +355,7 @@ function AddHoldingModal({
             }}
             className="mt-1 rounded-[11px] bg-[#10141a] py-3 text-[14px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Add to portfolio
+            {isEdit ? "Save changes" : "Add to portfolio"}
           </button>
         </div>
       </div>

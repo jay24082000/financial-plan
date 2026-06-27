@@ -66,6 +66,28 @@ export function useHoldings() {
     [supabase],
   );
 
+  const updateHolding = useCallback(
+    async (id: string, patch: Omit<Holding, "id">) => {
+      const { data, error } = await supabase
+        .from("holdings")
+        .update({
+          type: patch.type,
+          symbol: patch.symbol,
+          label: patch.label,
+          quantity: patch.quantity,
+          avg_cost: patch.avgCost,
+        })
+        .eq("id", id)
+        .select()
+        .single();
+      if (!error && data) {
+        const updated = rowToHolding(data as HoldingRow);
+        setHoldings((prev) => prev.map((h) => (h.id === id ? updated : h)));
+      }
+    },
+    [supabase],
+  );
+
   const removeHolding = useCallback(
     async (id: string) => {
       const { error } = await supabase.from("holdings").delete().eq("id", id);
@@ -74,5 +96,12 @@ export function useHoldings() {
     [supabase],
   );
 
-  return { holdings, loading, addHolding, removeHolding, reload: load };
+  return {
+    holdings,
+    loading,
+    addHolding,
+    updateHolding,
+    removeHolding,
+    reload: load,
+  };
 }

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
-type Mode = "signin" | "signup" | "sent";
+type Mode = "signin" | "signup" | "forgot" | "sent";
 
 function redirectTarget() {
   if (typeof window === "undefined") return "/dashboard";
@@ -90,17 +90,17 @@ export default function LoginPage() {
     if (error) setError(error.message);
   };
 
-  const handleForgot = async () => {
-    if (!emailValid) {
-      setError("Enter your email first, then tap Forgot password.");
-      return;
-    }
+  const handleSendReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!emailValid || submitting) return;
+    setSubmitting(true);
     setError(null);
     const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
       redirectTo: `${window.location.origin}/auth/callback?redirect=/reset-password`,
     });
     if (error) setError(error.message);
     else setMode("sent");
+    setSubmitting(false);
   };
 
   return (
@@ -111,12 +111,64 @@ export default function LoginPage() {
             <div className="h-[13px] w-[13px] -rotate-45 rounded-full border-[2.5px] border-white border-r-transparent" />
           </div>
           <span className="text-[19px] font-extrabold tracking-tight">
-            Meridian
+            Stax
           </span>
         </div>
 
         {mode === "sent" ? (
           <CheckEmail email={email} onBack={() => setMode("signin")} />
+        ) : mode === "forgot" ? (
+          <div className="rounded-[20px] border border-[#ecece4] bg-white p-8 shadow-[0_1px_2px_rgba(20,25,30,0.04),0_10px_30px_rgba(20,25,30,0.05)]">
+            <h1 className="text-center text-[24px] font-extrabold tracking-tight">
+              Reset your password
+            </h1>
+            <p className="mb-6 mt-2 text-center text-[14px] leading-relaxed text-[#787e87]">
+              Enter your email and we&apos;ll send you a link to set a new
+              password.
+            </p>
+            <form
+              onSubmit={handleSendReset}
+              className="flex flex-col gap-[15px]"
+            >
+              <Field label="Email">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="auth-input"
+                  autoFocus
+                />
+              </Field>
+              {error && (
+                <p className="text-[13px] font-medium text-[#cf4842]">
+                  {error}
+                </p>
+              )}
+              <button
+                type="submit"
+                disabled={!emailValid || submitting}
+                className="mt-1 flex h-[50px] w-full items-center justify-center rounded-xl bg-[#10141a] text-[15px] font-bold text-white transition hover:bg-[#20272f] disabled:cursor-not-allowed disabled:opacity-45"
+              >
+                {submitting ? (
+                  <span className="h-[18px] w-[18px] animate-spin rounded-full border-[2.5px] border-white/35 border-t-white" />
+                ) : (
+                  "Send reset link"
+                )}
+              </button>
+            </form>
+            <div className="mt-5 text-center">
+              <button
+                onClick={() => {
+                  setMode("signin");
+                  setError(null);
+                }}
+                className="text-[14px] font-bold text-[#0e9466] transition hover:text-[#0c7a53]"
+              >
+                ← Back to sign in
+              </button>
+            </div>
+          </div>
         ) : (
           <>
             <div className="rounded-[20px] border border-[#ecece4] bg-white p-8 shadow-[0_1px_2px_rgba(20,25,30,0.04),0_10px_30px_rgba(20,25,30,0.05)]">
@@ -178,7 +230,10 @@ export default function LoginPage() {
                     {!isSignup && (
                       <button
                         type="button"
-                        onClick={handleForgot}
+                        onClick={() => {
+                          setMode("forgot");
+                          setError(null);
+                        }}
                         className="text-[12.5px] font-semibold text-[#787e87] transition hover:text-[#0c7a53]"
                       >
                         Forgot password?
@@ -313,15 +368,15 @@ function CheckEmail({ email, onBack }: { email: string; onBack: () => void }) {
         Check your email
       </h1>
       <p className="mt-3 text-[14px] leading-relaxed text-[#787e87]">
-        We sent a confirmation link to
+        We sent a link to
         <br />
         <span className="font-bold text-[#1a1d21]">
           {email.trim() || "your inbox"}
         </span>
       </p>
       <p className="mb-7 mt-2.5 text-[13px] leading-relaxed text-[#9aa0a8]">
-        Click the link in that email to activate your account. It may take a
-        minute to arrive.
+        Click the link in that email to continue. It may take a minute to
+        arrive.
       </p>
       <button
         onClick={onBack}

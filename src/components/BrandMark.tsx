@@ -7,7 +7,7 @@ export function BrandMark({ className = "" }: { className?: string }) {
         <div className="h-3 w-3 -rotate-45 rounded-full border-[2.5px] border-white border-r-transparent" />
       </div>
       <span className="hidden text-lg font-extrabold tracking-tight lg:inline">
-        Meridian
+        Stax
       </span>
     </Link>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Card, CardLabel, SectionTitle } from "@/components/Card";
@@ -11,8 +11,9 @@ import { Disclaimer } from "@/components/Disclaimer";
 import { useHoldings } from "@/hooks/useHoldings";
 import { useAllPrices } from "@/hooks/useAllPrices";
 import { useMounted } from "@/hooks/useMounted";
+import { useUser, displayName } from "@/hooks/useUser";
+import { useSnapshots } from "@/hooks/useSnapshots";
 import { computeTotals, CLASS_ORDER } from "@/lib/portfolio-calc";
-import { buildHistory } from "@/lib/series";
 import {
   formatUSD,
   formatSignedUSD,
@@ -20,13 +21,12 @@ import {
   formatPrice,
 } from "@/lib/format";
 
-const CASH = 28450;
 const RANGES = ["1W", "1M", "1Y", "ALL"] as const;
-const RANGE_POINTS: Record<(typeof RANGES)[number], number> = {
+const RANGE_DAYS: Record<(typeof RANGES)[number], number> = {
   "1W": 7,
   "1M": 30,
-  "1Y": 52,
-  ALL: 80,
+  "1Y": 365,
+  ALL: Infinity,
 };
 
 const CLASS_LABEL: Record<string, string> = {
@@ -37,21 +37,44 @@ const CLASS_LABEL: Record<string, string> = {
   cash: "Cash",
 };
 
+function greeting(hour: number): string {
+  if (hour < 12) return "Good morning";
+  if (hour < 18) return "Good afternoon";
+  return "Good evening";
+}
+
 export default function DashboardPage() {
   const mounted = useMounted();
+  const user = useUser();
   const { holdings } = useHoldings();
-  const { prices } = useAllPrices();
+  const { prices, quotesLoading } = useAllPrices();
+  const { history, recordToday } = useSnapshots();
   const [range, setRange] = useState<(typeof RANGES)[number]>("1Y");
 
   const totals = useMemo(
-    () => computeTotals(holdings, prices, CASH),
+    () => computeTotals(holdings, prices),
     [holdings, prices],
   );
 
-  const history = useMemo(
-    () => buildHistory(totals.netWorth, RANGE_POINTS[range]),
-    [totals.netWorth, range],
-  );
+  const netWorthRef = useRef(0);
+  netWorthRef.current = totals.netWorth;
+
+  useEffect(() => {
+    if (!mounted || quotesLoading) return;
+    const t = setTimeout(() => {
+      if (netWorthRef.current > 0) recordToday(netWorthRef.current);
+    }, 4000);
+    return () => clearTimeout(t);
+  }, [mounted, quotesLoading, recordToday]);
+
+  const chartData = useMemo(() => {
+    const cutoff = Date.now() - RANGE_DAYS[range] * 86400000;
+    const pts = history
+      .filter((s) => new Date(s.day).getTime() >= cutoff)
+      .map((s, i) => ({ i, value: s.value }));
+    if (pts.length === 1) return [pts[0], { i: 1, value: pts[0].value }];
+    return pts;
+  }, [history, range]);
 
   const gainPos = totals.totalGain >= 0;
   const dayPos = totals.dayChange >= 0;
@@ -76,16 +99,23 @@ export default function DashboardPage() {
     return <div className="min-h-[60vh]" />;
   }
 
+  const now = new Date();
+  const dateLabel = now.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <>
       <div className="mx-auto max-w-[1200px] px-5 pb-14 pt-3 md:px-10">
         <div className="mb-6 flex items-end justify-between gap-5">
           <div>
             <div className="mb-1 text-[13px] font-medium text-[#8a8f98]">
-              Friday, June 26
+              {dateLabel}
             </div>
             <h1 className="text-[27px] font-extrabold tracking-tight">
-              Good morning, Alex
+              {greeting(now.getHours())}, {displayName(user)}
             </h1>
           </div>
           <Link
@@ -93,7 +123,7 @@ export default function DashboardPage() {
             className="flex shrink-0 items-center gap-2 whitespace-nowrap rounded-[11px] bg-[#10141a] px-[18px] py-[11px] text-[13.5px] font-semibold text-white"
           >
             <span className="-mt-px text-[17px] leading-none">+</span> Add
-            transaction
+            holding
           </Link>
         </div>
 
@@ -141,7 +171,16 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="mt-2.5">
-              <NetWorthChart data={history} />
+              {chartData.length >= 2 ? (
+                <NetWorthChart data={chartData} />
+              ) : (
+                <div className="flex h-[180px] flex-col items-center justify-center text-center text-[13px] text-[#9aa0a8]">
+                  <span>Your net-worth history starts building today.</span>
+                  <span className="mt-1 text-[12px]">
+                    Come back tomorrow to see the trend.
+                  </span>
+                </div>
+              )}
             </div>
           </Card>
 
@@ -154,9 +193,9 @@ export default function DashboardPage() {
               subClass={gainPos ? "text-[#0e9466]" : "text-[#cf4842]"}
             />
             <StatCard
-              label="Investable cash"
-              value={formatUSD(CASH)}
-              sub="Ready to deploy"
+              label="Total invested"
+              value={formatUSD(totals.totalCost)}
+              sub="Cost basis"
               subClass="text-[#9aa0a8]"
             />
           </div>
@@ -165,7 +204,7 @@ export default function DashboardPage() {
         <div className="grid gap-[18px] lg:grid-cols-3">
           <Card>
             <SectionTitle>Allocation</SectionTitle>
-            <div className="mb-[18px] mt-4 flex h-[11px] overflow-hidden rounded-md">
+            <div className="mb-[18px] mt-4 flex h-[11px] overflow-hidden rounded-md bg-[#f1f1ea]">
               {allocation.map((a) => (
                 <div
                   key={a.cls}
@@ -193,6 +232,11 @@ export default function DashboardPage() {
                   </span>
                 </div>
               ))}
+              {allocation.length === 0 && (
+                <div className="text-[12.5px] text-[#9aa0a8]">
+                  No holdings yet.
+                </div>
+              )}
             </div>
           </Card>
 
@@ -233,6 +277,11 @@ export default function DashboardPage() {
                   </div>
                 </div>
               ))}
+              {topHoldings.length === 0 && (
+                <div className="text-[12.5px] text-[#9aa0a8]">
+                  Add holdings to see them here.
+                </div>
+              )}
             </div>
           </Card>
 

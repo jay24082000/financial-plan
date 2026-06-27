@@ -1,6 +1,6 @@
 "use client";
 
-// Labelled range slider with the value shown on the right (Meridian style).
+// Labelled range slider with the value shown on the right (Stax style).
 export function RangeSlider({
   label,
   value,

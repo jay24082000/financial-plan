@@ -18,7 +18,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Meridian — Plan your wealth",
+  title: "Stax — Plan your wealth",
   description:
     "Retirement planning, investment calculators, and realtime markets in one place.",
 };

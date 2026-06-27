@@ -8,6 +8,7 @@ export interface QuoteData {
   changePercent: number;
   currency: string;
   name: string;
+  spark: number[];
   updatedAt: number;
 }
 
@@ -44,6 +45,7 @@ export function useQuotes(symbols: string[], intervalMs = 10_000) {
             changePercent: q.changePercent,
             currency: q.currency,
             name: q.name,
+            spark: q.spark ?? [],
             updatedAt: Date.now(),
           };
         }

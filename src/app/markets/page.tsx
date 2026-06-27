@@ -9,10 +9,10 @@ import { Sparkline } from "@/components/Sparkline";
 import { Disclaimer } from "@/components/Disclaimer";
 import { useBinancePrices } from "@/hooks/useBinancePrices";
 import { useQuotes } from "@/hooks/useQuotes";
+import { useCryptoSparks } from "@/hooks/useCryptoSparks";
 import { CRYPTO_SYMBOLS, YAHOO_SYMBOLS, ALL_SYMBOLS } from "@/lib/types";
 import type { AssetType } from "@/lib/types";
 import { formatPercent } from "@/lib/format";
-import { sparkFromChange } from "@/lib/series";
 
 const TABS = [
   { id: "all", label: "All" },
@@ -30,15 +30,20 @@ export default function MarketsPage() {
     CRYPTO_SYMBOLS.map((s) => s.symbol),
   );
   const { quotes } = useQuotes(YAHOO_SYMBOLS.map((s) => s.symbol));
+  const cryptoSparks = useCryptoSparks(CRYPTO_SYMBOLS.map((s) => s.symbol));
 
   const rows = useMemo(() => {
     return ALL_SYMBOLS.map((m) => {
       const src = m.type === "crypto" ? crypto[m.symbol] : quotes[m.symbol];
       const price = src?.price ?? NaN;
       const changePercent = src?.changePercent ?? 0;
-      return { ...m, price, changePercent };
+      const spark =
+        m.type === "crypto"
+          ? (cryptoSparks[m.symbol] ?? [])
+          : (quotes[m.symbol]?.spark ?? []);
+      return { ...m, price, changePercent, spark };
     });
-  }, [crypto, quotes]);
+  }, [crypto, quotes, cryptoSparks]);
 
   const filtered = rows.filter((r) =>
     tab === "all" ? true : r.type === (tab as AssetType),
@@ -120,11 +125,10 @@ export default function MarketsPage() {
                   {hasPrice ? formatPercent(r.changePercent) : "—"}
                 </div>
                 <div className="flex justify-center">
-                  {hasPrice && (
-                    <Sparkline
-                      data={sparkFromChange(r.changePercent)}
-                      up={up}
-                    />
+                  {r.spark.length >= 2 ? (
+                    <Sparkline data={r.spark} up={up} />
+                  ) : (
+                    <span className="text-[12px] text-[#c4c8cd]">—</span>
                   )}
                 </div>
                 <div className="flex justify-end">

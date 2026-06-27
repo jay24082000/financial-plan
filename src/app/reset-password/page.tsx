@@ -46,7 +46,7 @@ export default function ResetPasswordPage() {
             <div className="h-[13px] w-[13px] -rotate-45 rounded-full border-[2.5px] border-white border-r-transparent" />
           </div>
           <span className="text-[19px] font-extrabold tracking-tight">
-            Meridian
+            Stax
           </span>
         </div>
 

@@ -30,6 +30,7 @@ export async function GET(request: Request) {
         price: q?.price ?? NaN,
         changePercent: q?.changePercent ?? 0,
         currency: q?.currency ?? "USD",
+        spark: q?.spark ?? [],
       };
     });
     return NextResponse.json({ quotes });
