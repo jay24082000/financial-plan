@@ -75,7 +75,7 @@ export function MoneyField({
             onFocus={() => (focused.current = true)}
             onChange={(e) => commitLive(e.target.value)}
             onBlur={commitFinal}
-            className="mer-num w-[110px] bg-transparent text-right text-[15px] font-semibold outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+            className="mer-num w-27.5 bg-transparent text-right text-[15px] font-semibold outline-hidden [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
           />
           {currency === "THB" && <span className="ml-1">{symEl}</span>}
         </div>
@@ -147,7 +147,7 @@ export function NumberField({
             onFocus={() => (focused.current = true)}
             onChange={(e) => commitLive(e.target.value)}
             onBlur={commitFinal}
-            className="mer-num w-[64px] bg-transparent text-right text-[15px] font-semibold outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+            className="mer-num w-16 bg-transparent text-right text-[15px] font-semibold outline-hidden [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
           />
           {suffix && (
             <span className="mer-num text-[15px] font-semibold">{suffix}</span>

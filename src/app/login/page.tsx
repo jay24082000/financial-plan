@@ -106,8 +106,8 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-[#f6f6f2] px-6 py-10">
-      <div className="w-full max-w-[412px]">
-        <div className="mb-[26px] flex items-center justify-center gap-2.5">
+      <div className="w-full max-w-103">
+        <div className="mb-6.5 flex items-center justify-center gap-2.5">
           <StaxLogo size={32} shadow={false} />
           <span className="text-[19px] font-extrabold tracking-tight">
             Stax
@@ -127,7 +127,7 @@ export default function LoginPage() {
             </p>
             <form
               onSubmit={handleSendReset}
-              className="flex flex-col gap-[15px]"
+              className="flex flex-col gap-3.75"
             >
               <Field label="Email">
                 <input
@@ -147,10 +147,10 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={!emailValid || submitting}
-                className="mt-1 flex h-[50px] w-full items-center justify-center rounded-xl bg-[#10141a] text-[15px] font-bold text-white transition hover:bg-[#20272f] disabled:cursor-not-allowed disabled:opacity-45"
+                className="mt-1 flex h-12.5 w-full items-center justify-center rounded-xl bg-[#10141a] text-[15px] font-bold text-white transition hover:bg-[#20272f] disabled:cursor-not-allowed disabled:opacity-45"
               >
                 {submitting ? (
-                  <span className="h-[18px] w-[18px] animate-spin rounded-full border-[2.5px] border-white/35 border-t-white" />
+                  <span className="h-4.5 w-4.5 animate-spin rounded-full border-[2.5px] border-white/35 border-t-white" />
                 ) : (
                   "Send reset link"
                 )}
@@ -174,7 +174,7 @@ export default function LoginPage() {
               <h1 className="text-center text-[24px] font-extrabold tracking-tight">
                 {isSignup ? "Create your account" : "Welcome back"}
               </h1>
-              <p className="mb-[26px] mt-2 text-center text-[14px] leading-relaxed text-[#787e87]">
+              <p className="mb-6.5 mt-2 text-center text-[14px] leading-relaxed text-[#787e87]">
                 {isSignup
                   ? "Start planning your financial future in minutes."
                   : "Sign in to pick up where you left off."}
@@ -182,22 +182,22 @@ export default function LoginPage() {
 
               <button
                 onClick={handleGoogle}
-                className="mer-gbtn flex w-full items-center justify-center gap-3 rounded-xl border border-[#e3e3db] bg-white py-[13px] text-[14.5px] font-semibold text-[#2a3038] transition hover:bg-[#fafaf7]"
+                className="mer-gbtn flex w-full items-center justify-center gap-3 rounded-xl border border-[#e3e3db] bg-white py-3.25 text-[14.5px] font-semibold text-[#2a3038] transition hover:bg-[#fafaf7]"
               >
                 <GoogleIcon /> Continue with Google
               </button>
 
               <div className="my-5 flex items-center gap-3.5">
-                <div className="h-px flex-1 bg-[#e9e9e1]" />
+                <div className="h-1769.5x flex-1 bg-[#e9e9e1]" />
                 <span className="text-[12px] font-medium text-[#9aa0a8]">
                   or
                 </span>
-                <div className="h-px flex-1 bg-[#e9e9e1]" />
+                <div className="h-1814.5x flex-1 bg-[#e9e9e1]" />
               </div>
 
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-[15px]"
+                className="flex flex-col gap-3.75"
               >
                 {isSignup && (
                   <Field label="Full name">
@@ -222,7 +222,7 @@ export default function LoginPage() {
                 </Field>
 
                 <div>
-                  <div className="mb-[7px] flex items-baseline justify-between">
+                  <div className="mb-1.75 flex items-baseline justify-between">
                     <label className="text-[12.5px] font-semibold text-[#5c636c]">
                       Password
                     </label>
@@ -249,7 +249,7 @@ export default function LoginPage() {
                           ? "At least 8 characters"
                           : "Enter your password"
                       }
-                      className="auth-input !pr-[46px]"
+                      className="auth-input pr-11.5!"
                     />
                     <button
                       type="button"
@@ -261,14 +261,14 @@ export default function LoginPage() {
                   </div>
                   {isSignup && password.length > 0 && (
                     <div className="mt-2.5 flex items-center gap-2.5">
-                      <div className="h-[5px] flex-1 overflow-hidden rounded-[5px] bg-[#e7e7e0]">
+                      <div className="h-1.25 flex-1 overflow-hidden rounded-[5px] bg-[#e7e7e0]">
                         <div
                           className="h-full rounded-[5px] transition-all"
                           style={{ width: `${st.pct}%`, background: st.color }}
                         />
                       </div>
                       <span
-                        className="w-[46px] text-right text-[11.5px] font-semibold"
+                        className="w-11.5 text-right text-[11.5px] font-semibold"
                         style={{ color: st.color }}
                       >
                         {st.label}
@@ -286,10 +286,10 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={submitDisabled}
-                  className="mt-1 flex h-[50px] w-full items-center justify-center gap-2.5 rounded-xl bg-[#10141a] text-[15px] font-bold text-white transition hover:bg-[#20272f] disabled:cursor-not-allowed disabled:opacity-45"
+                  className="mt-1 flex h-12.5 w-full items-center justify-center gap-2.5 rounded-xl bg-[#10141a] text-[15px] font-bold text-white transition hover:bg-[#20272f] disabled:cursor-not-allowed disabled:opacity-45"
                 >
                   {submitting ? (
-                    <span className="h-[18px] w-[18px] animate-spin rounded-full border-[2.5px] border-white/35 border-t-white" />
+                    <span className="h-4.5 w-4.5 animate-spin rounded-full border-[2.5px] border-white/35 border-t-white" />
                   ) : (
                     <span>{isSignup ? "Create account" : "Sign in"}</span>
                   )}
@@ -309,7 +309,7 @@ export default function LoginPage() {
               </form>
             </div>
 
-            <div className="mt-[22px] text-center text-[14px] text-[#787e87]">
+            <div className="mt-5.5 text-center text-[14px] text-[#787e87]">
               {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
               <button
                 onClick={() => {
@@ -337,7 +337,7 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-[7px] block text-[12.5px] font-semibold text-[#5c636c]">
+      <label className="mb-1.75 block text-[12.5px] font-semibold text-[#5c636c]">
         {label}
       </label>
       {children}
@@ -348,7 +348,7 @@ function Field({
 function CheckEmail({ email, onBack }: { email: string; onBack: () => void }) {
   return (
     <div className="rounded-[20px] border border-[#ecece4] bg-white p-9 text-center shadow-[0_1px_2px_rgba(20,25,30,0.04),0_10px_30px_rgba(20,25,30,0.05)]">
-      <div className="mx-auto mb-[22px] flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-[#e6f4ee]">
+      <div className="mx-auto mb-5.5 flex h-15 w-15 items-center justify-center rounded-2xl bg-[#e6f4ee]">
         <svg
           width="28"
           height="28"

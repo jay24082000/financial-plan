@@ -36,7 +36,7 @@ export default function CalculatorPage() {
           subtitle="See how compound growth builds your wealth over time"
         />
 
-        <div className="grid gap-[18px] lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="grid gap-4.5 lg:grid-cols-[0.85fr_1.15fr]">
           <Card>
             <SectionTitle>Assumptions</SectionTitle>
             <div className="mt-5 flex flex-col gap-5">
@@ -76,8 +76,8 @@ export default function CalculatorPage() {
             </div>
           </Card>
 
-          <div className="flex flex-col gap-[18px]">
-            <Card dark className="!p-6">
+          <div className="flex flex-col gap-4.5">
+            <Card dark className="p-6!">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="text-[13px] font-semibold text-white/60">
@@ -86,7 +86,7 @@ export default function CalculatorPage() {
                   <div className="mer-num mt-2 text-[40px] font-semibold tracking-tight">
                     {fmt(final.balance)}
                   </div>
-                  <div className="mer-num mt-1 text-[14px] font-semibold text-[#46ad80]">
+                  <div className="mer-num mt-1 text-[14px] font-semibold text-brand-400">
                     {fmtSigned(totalGrowth)} growth · {formatPercent(gainPct)}
                   </div>
                 </div>

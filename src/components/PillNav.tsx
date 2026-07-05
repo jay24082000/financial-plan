@@ -37,7 +37,7 @@ export function PillNav() {
     <header className="pointer-events-none sticky top-0 z-30 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-4 md:px-8">
       <BrandMark className="pointer-events-auto justify-self-start" />
 
-      <nav className="no-scrollbar pointer-events-auto flex max-w-full justify-self-center gap-[2px] overflow-x-auto rounded-full border border-[#ebebe3] bg-white p-[5px] shadow-[0_4px_16px_rgba(20,25,30,0.07)]">
+      <nav className="no-scrollbar pointer-events-auto flex max-w-full justify-self-center gap-0.5 overflow-x-auto rounded-full border border-[#ebebe3] bg-white p-1.25 shadow-[0_4px_16px_rgba(20,25,30,0.07)]">
         {NAV.map(({ href, label, Icon }) => {
           const active =
             href === "/" ? pathname === "/" : pathname.startsWith(href);

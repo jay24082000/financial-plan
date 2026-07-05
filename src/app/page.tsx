@@ -181,14 +181,14 @@ export default async function LandingPage() {
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#f6f6f2] text-[#1a1d21]">
-      <header className="mx-auto flex max-w-[1180px] items-center justify-between px-6 py-5">
+      <header className="mx-auto flex max-w-295 items-center justify-between px-6 py-5">
         <div className="flex items-center gap-2.5">
           <Logo />
           <span className="text-[18px] font-extrabold tracking-tight">
             Stax
           </span>
         </div>
-        <nav className="hidden gap-[30px] text-[14px] font-semibold text-[#646b74] md:flex">
+        <nav className="hidden gap-7.5 text-[14px] font-semibold text-[#646b74] md:flex">
           <a href="#features" className="transition hover:text-[#1a1d21]">
             Features
           </a>
@@ -206,7 +206,7 @@ export default async function LandingPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/dashboard"
-              className="rounded-[10px] bg-[#10141a] px-[18px] py-2.5 text-[14px] font-semibold text-white transition hover:bg-[#20272f]"
+              className="rounded-[10px] bg-[#10141a] px-4.5 py-2.5 text-[14px] font-semibold text-white transition hover:bg-[#20272f]"
             >
               Go to dashboard
             </Link>
@@ -218,7 +218,7 @@ export default async function LandingPage() {
               <span className="hidden text-[14px] font-semibold text-[#3a4048] sm:inline">
                 {profile.name}
               </span>
-              <span className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-gradient-to-br from-[#2a3340] to-[#3c4a5c] text-[13px] font-bold text-white shadow-[0_1px_3px_rgba(0,0,0,0.15)]">
+              <span className="flex h-9.5 w-9.5 items-center justify-center rounded-full bg-linear-to-br from-[#2a3340] to-[#3c4a5c] text-[13px] font-bold text-white shadow-[0_1px_3px_rgba(0,0,0,0.15)]">
                 {profile.initials}
               </span>
             </Link>
@@ -233,7 +233,7 @@ export default async function LandingPage() {
             </Link>
             <Link
               href="/login?mode=signup"
-              className="rounded-[10px] bg-[#10141a] px-[18px] py-2.5 text-[14px] font-semibold text-white transition hover:bg-[#20272f]"
+              className="rounded-[10px] bg-[#10141a] px-4.5 py-2.5 text-[14px] font-semibold text-white transition hover:bg-[#20272f]"
             >
               Get started free
             </Link>
@@ -241,11 +241,11 @@ export default async function LandingPage() {
         )}
       </header>
 
-      <section className="mx-auto max-w-[1180px] px-6 pb-10 pt-16">
+      <section className="mx-auto max-w-295 px-6 pb-10 pt-16">
         <div className="grid items-center gap-10 md:grid-cols-[1.02fr_1.1fr] md:gap-[52px]">
           <div>
-            <div className="mb-[22px] inline-flex items-center gap-2 rounded-full border border-[#ecece4] bg-white py-1.5 pl-2.5 pr-3.5 text-[12.5px] font-semibold text-[#5c636c]">
-              <span className="h-[7px] w-[7px] rounded-full bg-[#13b07a] shadow-[0_0_0_3px_rgba(19,176,122,0.18)]" />
+            <div className="mb-5.5 inline-flex items-center gap-2 rounded-full border border-[#ecece4] bg-white py-1.5 pl-2.5 pr-3.5 text-[12.5px] font-semibold text-[#5c636c]">
+              <span className="h-1.75 w-1.75 rounded-full bg-[#13b07a] shadow-[0_0_0_3px_rgba(19,176,122,0.18)]" />
               Live prices, real plans
             </div>
             <h1 className="text-[40px] font-extrabold leading-[1.04] tracking-[-0.035em] sm:text-[52px]">
@@ -253,30 +253,30 @@ export default async function LandingPage() {
               <br />
               clearly in view.
             </h1>
-            <p className="my-7 max-w-[440px] text-[17.5px] leading-relaxed text-[#5e646d]">
+            <p className="my-7 max-w-110 text-[17.5px] leading-relaxed text-[#5e646d]">
               Plan for retirement, track every holding live, and watch
               compounding do the work — all in one calm, trustworthy place.
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href={ctaHref}
-                className="rounded-[13px] bg-[#10141a] px-[26px] py-[15px] text-[15.5px] font-bold text-white transition hover:bg-[#20272f]"
+                className="rounded-[13px] bg-[#10141a] px-6.5 py-3.75 text-[15.5px] font-bold text-white transition hover:bg-[#20272f]"
               >
                 {ctaLabel}
               </Link>
               <a
                 href="#how"
-                className="rounded-[13px] border border-[#deded6] bg-white px-[22px] py-[15px] text-[15.5px] font-bold text-[#1a1d21]"
+                className="rounded-[13px] border border-[#deded6] bg-white px-5.5 py-3.75 text-[15.5px] font-bold text-[#1a1d21]"
               >
                 See how it works
               </a>
             </div>
-            <div className="mt-[26px] flex items-center gap-4 text-[13px] font-medium text-[#787e87]">
-              <span className="flex items-center gap-[7px]">
+            <div className="mt-6.5 flex items-center gap-4 text-[13px] font-medium text-[#787e87]">
+              <span className="flex items-center gap-1.75">
                 <Check size={14} className="text-[#13b07a]" strokeWidth={2.4} />
                 Free to start
               </span>
-              <span className="flex items-center gap-[7px]">
+              <span className="flex items-center gap-1.75">
                 <Check size={14} className="text-[#13b07a]" strokeWidth={2.4} />
                 No card required
               </span>
@@ -284,7 +284,7 @@ export default async function LandingPage() {
           </div>
 
           <div className="relative">
-            <div className="rounded-[22px] border border-[#e8e8e0] bg-white p-[22px] shadow-[0_2px_4px_rgba(20,25,30,0.04),0_30px_60px_rgba(20,25,30,0.10)] [transform:rotate(0.4deg)]">
+            <div className="rounded-[22px] border border-[#e8e8e0] bg-white p-5.5 shadow-[0_2px_4px_rgba(20,25,30,0.04),0_30px_60px_rgba(20,25,30,0.10)] transform-[rotate(0.4deg)]">
               <div className="mb-1.5 flex items-start justify-between">
                 <div>
                   <div className="text-[12.5px] font-semibold text-[#8a8f98]">
@@ -297,13 +297,13 @@ export default async function LandingPage() {
                     <span className="mer-num text-[13px] font-semibold text-[#0e9466]">
                       +$5,127
                     </span>
-                    <span className="mer-num rounded-full bg-[rgba(14,148,102,0.1)] px-[7px] py-0.5 text-[11.5px] font-semibold text-[#0e9466]">
+                    <span className="mer-num rounded-full bg-[rgba(14,148,102,0.1)] px-1.75 py-0.5 text-[11.5px] font-semibold text-[#0e9466]">
                       +1.91%
                     </span>
                     <span className="text-[11.5px] text-[#9aa0a8]">today</span>
                   </div>
                 </div>
-                <div className="flex gap-[3px] rounded-[9px] bg-[#f4f4ef] p-[3px]">
+                <div className="flex gap-0.75 rounded-[9px] bg-[#f4f4ef] p-0.75">
                   <span className="px-2 py-1 text-[11px] font-semibold text-[#8a8f98]">
                     1M
                   </span>
@@ -318,7 +318,7 @@ export default async function LandingPage() {
               <svg
                 viewBox="0 0 480 150"
                 preserveAspectRatio="none"
-                className="mt-2 block h-[140px] w-full overflow-visible"
+                className="mt-2 block h-35 w-full overflow-visible"
               >
                 <defs>
                   <linearGradient id="herog" x1="0" y1="0" x2="0" y2="1">
@@ -361,8 +361,8 @@ export default async function LandingPage() {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-[22px] -left-6 flex items-center gap-2.5 rounded-[14px] border border-[#eaeae2] bg-white px-3.5 py-[11px] shadow-[0_12px_30px_rgba(20,25,30,0.12)]">
-              <div className="flex h-[30px] w-[30px] items-center justify-center rounded-lg bg-[#e9f5ec] text-[11px] font-bold text-[#3a9d5b]">
+            <div className="absolute bottom-[-22px] -left-6 flex items-center gap-2.5 rounded-[14px] border border-[#eaeae2] bg-white px-3.5 py-2.75 shadow-[0_12px_30px_rgba(20,25,30,0.12)]">
+              <div className="flex h-7.5 w-7.5 items-center justify-center rounded-lg bg-[#e9f5ec] text-[11px] font-bold text-[#3a9d5b]">
                 N
               </div>
               <div>
@@ -379,13 +379,13 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <section className="mt-[30px]">
-        <div className="mer-ticker-mask overflow-hidden border-y border-[#e9e9e1] bg-white py-[15px]">
+      <section className="mt-7.5">
+        <div className="mer-ticker-mask overflow-hidden border-y border-[#e9e9e1] bg-white py-3.75">
           <div className="mer-ticker-track">
             {[...TICKER, ...TICKER].map((t, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2.5 whitespace-nowrap border-r border-[#efefe8] px-[26px]"
+                className="flex items-center gap-2.5 whitespace-nowrap border-r border-[#efefe8] px-6.5"
               >
                 <span className="text-[13.5px] font-bold">{t.sym}</span>
                 <span className="mer-num text-[13px] text-[#5c636c]">
@@ -405,10 +405,10 @@ export default async function LandingPage() {
 
       <section
         id="features"
-        className="mx-auto max-w-[1180px] px-6 pb-5 pt-[88px]"
+        className="mx-auto max-w-295 px-6 pb-5 pt-22"
       >
-        <div className="mx-auto mb-[52px] max-w-[600px] text-center">
-          <div className="mb-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-[#0e9466]">
+        <div className="mx-auto mb-13 max-w-150 text-center">
+          <div className="mb-3.5 text-[12.5px] font-bold uppercase tracking-widest text-[#0e9466]">
             Everything in one place
           </div>
           <h2 className="text-[38px] font-extrabold leading-[1.1] tracking-[-0.03em]">
@@ -419,14 +419,14 @@ export default async function LandingPage() {
             whole picture in focus — no spreadsheets, no guesswork.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4.5 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="mer-card-lift rounded-[18px] border border-[#ecece4] bg-white p-[26px] shadow-[0_1px_2px_rgba(20,25,30,0.03)]"
+              className="mer-card-lift rounded-[18px] border border-[#ecece4] bg-white p-6.5 shadow-[0_1px_2px_rgba(20,25,30,0.03)]"
             >
               <div
-                className="mb-[18px] flex h-[46px] w-[46px] items-center justify-center rounded-[13px]"
+                className="mb-4.5 flex h-11.5 w-11.5 items-center justify-center rounded-[13px]"
                 style={{ background: f.tint, color: f.color }}
               >
                 <f.Icon size={22} strokeWidth={1.6} />
@@ -442,16 +442,16 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <section className="mt-[88px] bg-[#10141a] text-white">
-        <div className="mx-auto grid max-w-[1180px] items-center gap-10 px-6 py-20 md:grid-cols-[1fr_1.06fr] md:gap-[56px]">
+      <section className="mt-22 bg-[#10141a] text-white">
+        <div className="mx-auto grid max-w-295 items-center gap-10 px-6 py-20 md:grid-cols-[1fr_1.06fr] md:gap-[56px]">
           <div>
-            <div className="mb-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-[#3fd49a]">
+            <div className="mb-3.5 text-[12.5px] font-bold uppercase tracking-widest text-[#3fd49a]">
               Retirement planning
             </div>
-            <h2 className="max-w-[420px] text-[36px] font-extrabold leading-[1.12] tracking-[-0.03em]">
+            <h2 className="max-w-105 text-[36px] font-extrabold leading-[1.12] tracking-[-0.03em]">
               Know exactly when you can retire.
             </h2>
-            <p className="my-[18px] max-w-[430px] text-[16.5px] leading-relaxed text-[#a7aeb8]">
+            <p className="my-4.5 max-w-107.5 text-[16.5px] leading-relaxed text-[#a7aeb8]">
               Set a target, and Stax projects your savings to retirement age
               with a single, honest answer: are you on track?
             </p>
@@ -465,7 +465,7 @@ export default async function LandingPage() {
                   key={t}
                   className="flex items-center gap-3 text-[15px] text-[#d7dce2]"
                 >
-                  <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-[rgba(19,176,122,0.16)]">
+                  <span className="flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full bg-[rgba(19,176,122,0.16)]">
                     <Check
                       size={12}
                       className="text-[#3fd49a]"
@@ -478,7 +478,7 @@ export default async function LandingPage() {
             </div>
           </div>
           <div className="rounded-[20px] bg-white p-6 text-[#1a1d21] shadow-[0_30px_60px_rgba(0,0,0,0.3)]">
-            <div className="mb-[18px] flex items-center justify-between rounded-[14px] border border-[#d2eadd] bg-[#eef8f2] px-4 py-3.5">
+            <div className="mb-4.5 flex items-center justify-between rounded-[14px] border border-[#d2eadd] bg-[#eef8f2] px-4 py-3.5">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] bg-[#13b07a] text-[18px] font-bold text-white">
                   ✓
@@ -504,7 +504,7 @@ export default async function LandingPage() {
             <svg
               viewBox="0 0 420 180"
               preserveAspectRatio="none"
-              className="block h-[170px] w-full overflow-visible"
+              className="block h-42.5 w-full overflow-visible"
             >
               <defs>
                 <linearGradient id="spotg" x1="0" y1="0" x2="0" y2="1">
@@ -544,20 +544,20 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <section id="how" className="mx-auto max-w-[1180px] px-6 pb-5 pt-[88px]">
-        <div className="mx-auto mb-[52px] max-w-[600px] text-center">
-          <div className="mb-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-[#0e9466]">
+      <section id="how" className="mx-auto max-w-295 px-6 pb-5 pt-22">
+        <div className="mx-auto mb-13 max-w-150 text-center">
+          <div className="mb-3.5 text-[12.5px] font-bold uppercase tracking-widest text-[#0e9466]">
             How it works
           </div>
           <h2 className="text-[38px] font-extrabold leading-[1.1] tracking-[-0.03em]">
             Set up once. Clarity from day one.
           </h2>
         </div>
-        <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4.5 sm:grid-cols-3">
           {STEPS.map((s) => (
             <div
               key={s.n}
-              className="rounded-[18px] border border-[#ecece4] bg-white p-[26px] py-[30px] shadow-[0_1px_2px_rgba(20,25,30,0.03)]"
+              className="rounded-[18px] border border-[#ecece4] bg-white p-6.5 py-7.5 shadow-[0_1px_2px_rgba(20,25,30,0.03)]"
             >
               <div className="mer-num mb-4 text-[14px] font-semibold text-[#13b07a]">
                 {s.n}
@@ -575,10 +575,10 @@ export default async function LandingPage() {
 
       <section
         id="pricing"
-        className="mx-auto max-w-[1180px] px-6 pb-5 pt-[88px]"
+        className="mx-auto max-w-295 px-6 pb-5 pt-22"
       >
-        <div className="mx-auto mb-[52px] max-w-[600px] text-center">
-          <div className="mb-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-[#0e9466]">
+        <div className="mx-auto mb-13 max-w-150 text-center">
+          <div className="mb-3.5 text-[12.5px] font-bold uppercase tracking-widest text-[#0e9466]">
             Pricing
           </div>
           <h2 className="text-[38px] font-extrabold leading-[1.1] tracking-[-0.03em]">
@@ -588,11 +588,11 @@ export default async function LandingPage() {
             Simple, honest pricing. No hidden fees, cancel anytime.
           </p>
         </div>
-        <div className="grid grid-cols-1 items-stretch gap-[18px] sm:grid-cols-3">
+        <div className="grid grid-cols-1 items-stretch gap-4.5 sm:grid-cols-3">
           {PLANS.map((p) => (
             <div
               key={p.name}
-              className="relative flex flex-col rounded-[18px] bg-white p-[28px] py-[30px] shadow-[0_1px_2px_rgba(20,25,30,0.03)]"
+              className="relative flex flex-col rounded-[18px] bg-white p-7 py-7.5 shadow-[0_1px_2px_rgba(20,25,30,0.03)]"
               style={{
                 border: p.popular ? "1.5px solid #13b07a" : "1px solid #ecece4",
                 boxShadow: p.popular
@@ -601,7 +601,7 @@ export default async function LandingPage() {
               }}
             >
               {p.popular && (
-                <div className="absolute right-[18px] top-[18px] rounded-full bg-[#e6f4ee] px-[11px] py-[5px] text-[11px] font-bold uppercase tracking-[0.04em] text-[#0c7a53]">
+                <div className="absolute right-4.5 top-4.5 rounded-full bg-[#e6f4ee] px-2.75 py-1.25 text-[11px] font-bold uppercase tracking-[0.04em] text-[#0c7a53]">
                   Most popular
                 </div>
               )}
@@ -619,12 +619,12 @@ export default async function LandingPage() {
                   {p.period}
                 </span>
               </div>
-              <p className="mb-[22px] mt-3 text-[14px] leading-snug text-[#646b74]">
+              <p className="mb-5.5 mt-3 text-[14px] leading-snug text-[#646b74]">
                 {p.desc}
               </p>
               <Link
                 href={ctaHref}
-                className="rounded-xl py-[13px] text-center text-[14.5px] font-bold transition"
+                className="rounded-xl py-3.25 text-center text-[14.5px] font-bold transition"
                 style={
                   p.popular
                     ? {
@@ -650,7 +650,7 @@ export default async function LandingPage() {
                   >
                     <Check
                       size={15}
-                      className="mt-px shrink-0 text-[#13b07a]"
+                      className="mt-6465.5x shrink-0 text-[#13b07a]"
                       strokeWidth={2}
                     />
                     {f}
@@ -664,12 +664,12 @@ export default async function LandingPage() {
 
       <section
         id="security"
-        className="mx-auto max-w-[1180px] px-6 pb-5 pt-[88px]"
+        className="mx-auto max-w-295 px-6 pb-5 pt-22"
       >
         <div className="rounded-[22px] border border-[#ecece4] bg-white p-8 shadow-[0_1px_2px_rgba(20,25,30,0.03)] md:p-[44px]">
           <div className="grid items-center gap-12 md:grid-cols-2">
             <div>
-              <div className="mb-[18px] inline-flex items-center gap-2.5 rounded-full bg-[#eaf4f0] px-3.5 py-[7px]">
+              <div className="mb-4.5 inline-flex items-center gap-2.5 rounded-full bg-[#eaf4f0] px-3.5 py-1.75">
                 <ShieldCheck
                   size={15}
                   className="text-[#0e9466]"
@@ -679,7 +679,7 @@ export default async function LandingPage() {
                   Security first
                 </span>
               </div>
-              <h2 className="text-[30px] font-extrabold leading-[1.15] tracking-[-0.025em]">
+              <h2 className="text-[30px] font-extrabold leading-[1.15] tracking-tight">
                 Your data is protected like a bank vault.
               </h2>
               <p className="mt-3.5 text-[15.5px] leading-relaxed text-[#5e646d]">
@@ -691,7 +691,7 @@ export default async function LandingPage() {
               {SECURITY.map((s) => (
                 <div
                   key={s.title}
-                  className="rounded-[14px] border border-[#efefe8] bg-[#fafaf6] p-[18px]"
+                  className="rounded-[14px] border border-[#efefe8] bg-[#fafaf6] p-4.5"
                 >
                   <div className="mb-1 text-[13.5px] font-bold">{s.title}</div>
                   <div className="text-[12.5px] leading-snug text-[#787e87]">
@@ -716,12 +716,12 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1180px] px-6 py-[88px]">
+      <section className="mx-auto max-w-295 px-6 py-22">
         <div className="rounded-[24px] bg-[#10141a] px-10 py-16 text-center">
           <h2 className="text-[40px] font-extrabold leading-[1.1] tracking-[-0.03em] text-white">
             {profile ? "Pick up where you left off." : "Start planning today."}
           </h2>
-          <p className="mx-auto mb-8 mt-4 max-w-[440px] text-[17px] leading-relaxed text-[#a7aeb8]">
+          <p className="mx-auto mb-8 mt-4 max-w-110 text-[17px] leading-relaxed text-[#a7aeb8]">
             {profile
               ? "Your dashboard is ready with live prices and your latest portfolio."
               : "Build a calmer, clearer financial future with Stax. Free to start, no card required."}
@@ -729,14 +729,14 @@ export default async function LandingPage() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href={ctaHref}
-              className="rounded-[13px] bg-[#13b07a] px-7 py-[15px] text-[15.5px] font-bold text-white shadow-[0_6px_20px_rgba(19,176,122,0.35)]"
+              className="rounded-[13px] bg-[#13b07a] px-7 py-3.75 text-[15.5px] font-bold text-white shadow-[0_6px_20px_rgba(19,176,122,0.35)]"
             >
               {ctaLabel}
             </Link>
             {!profile && (
               <Link
                 href="/login"
-                className="rounded-[13px] border border-white/15 bg-white/[0.08] px-6 py-[15px] text-[15.5px] font-bold text-white"
+                className="rounded-[13px] border border-white/15 bg-white/8 px-6 py-3.75 text-[15.5px] font-bold text-white"
               >
                 Sign in
               </Link>
@@ -746,7 +746,7 @@ export default async function LandingPage() {
       </section>
 
       <footer className="border-t border-[#e9e9e1]">
-        <div className="mx-auto grid max-w-[1180px] grid-cols-2 gap-8 px-6 pb-10 pt-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="mx-auto grid max-w-295 grid-cols-2 gap-8 px-6 pb-10 pt-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="col-span-2 md:col-span-1">
             <div className="mb-3.5 flex items-center gap-2.5">
               <Logo size={28} />
@@ -754,7 +754,7 @@ export default async function LandingPage() {
                 Stax
               </span>
             </div>
-            <p className="max-w-[260px] text-[13.5px] leading-relaxed text-[#878d96]">
+            <p className="max-w-65 text-[13.5px] leading-relaxed text-[#878d96]">
               Personal financial planning that keeps your whole picture in calm,
               clear view.
             </p>
@@ -768,7 +768,7 @@ export default async function LandingPage() {
             { h: "Legal", links: ["Privacy", "Terms", "Disclosures"] },
           ].map((col) => (
             <div key={col.h}>
-              <div className="mb-3.5 text-[12px] font-bold uppercase tracking-[0.05em] text-[#9aa0a8]">
+              <div className="mb-3.5 text-[12px] font-bold uppercase tracking-wider text-[#9aa0a8]">
                 {col.h}
               </div>
               <div className="flex flex-col gap-2.5 text-[13.5px] font-medium text-[#5c636c]">
@@ -786,11 +786,11 @@ export default async function LandingPage() {
           ))}
         </div>
         <div className="border-t border-[#efefe8]">
-          <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-4 px-6 py-5">
+          <div className="mx-auto flex max-w-295 flex-wrap items-center justify-between gap-4 px-6 py-5">
             <span className="text-[12.5px] text-[#9aa0a8]">
               © 2026 Stax Finance, Inc. All rights reserved.
             </span>
-            <span className="max-w-[560px] text-[12px] leading-snug text-[#a8aeb6]">
+            <span className="max-w-140 text-[12px] leading-snug text-[#a8aeb6]">
               Stax is not a broker-dealer or investment adviser. For
               informational purposes only; not financial advice.
             </span>

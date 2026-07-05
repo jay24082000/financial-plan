@@ -65,17 +65,17 @@ export default function OnboardingPage() {
 
   return (
     <div className="flex min-h-screen w-full bg-[#f6f6f2] text-[#1a1d21]">
-      <aside className="hidden w-[380px] shrink-0 flex-col bg-[#10141a] p-11 text-white lg:flex">
-        <div className="mb-[54px] flex items-center gap-2.5">
+      <aside className="hidden w-95 shrink-0 flex-col bg-[#10141a] p-11 text-white lg:flex">
+        <div className="mb-13.5 flex items-center gap-2.5">
           <StaxLogo size={34} shadow={false} />
           <span className="text-[19px] font-extrabold tracking-tight">
             Stax
           </span>
         </div>
-        <h1 className="max-w-[280px] text-[30px] font-extrabold leading-[1.18] tracking-[-0.03em]">
+        <h1 className="max-w-70 text-[30px] font-extrabold leading-[1.18] tracking-[-0.03em]">
           Let&apos;s set up your plan.
         </h1>
-        <p className="mb-11 mt-4 max-w-[270px] text-[15px] leading-relaxed text-[#9aa3ae]">
+        <p className="mb-11 mt-4 max-w-67.5 text-[15px] leading-relaxed text-[#9aa3ae]">
           Answer a few friendly questions and we&apos;ll tailor your dashboard
           and retirement plan to you.
         </p>
@@ -84,7 +84,7 @@ export default function OnboardingPage() {
             const done = i < step || step === 4;
             const active = i === step && step < 4;
             return (
-              <div key={label} className="flex items-start gap-[15px]">
+              <div key={label} className="flex items-start gap-3.75">
                 <div className="flex flex-col items-center">
                   <div
                     className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[14px] font-bold"
@@ -108,7 +108,7 @@ export default function OnboardingPage() {
                   </div>
                   {i < STEP_LABELS.length - 1 && (
                     <div
-                      className="my-1.5 h-[26px] w-0.5 rounded"
+                      className="my-1.5 h-6.5 w-0.5 rounded-sm"
                       style={{
                         background:
                           i < step || step === 4
@@ -142,7 +142,7 @@ export default function OnboardingPage() {
       </aside>
 
       <main className="flex flex-1 flex-col items-center overflow-y-auto px-6 py-10">
-        <div className="my-auto w-full max-w-[560px]">
+        <div className="my-auto w-full max-w-140">
           <div className="mb-6">
             <div className="mb-2.5 flex items-baseline justify-between">
               <span className="text-[13px] font-bold tracking-[0.02em] text-[#0e9466]">
@@ -156,7 +156,7 @@ export default function OnboardingPage() {
               {[0, 1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="h-[5px] flex-1 rounded-[3px] transition-colors"
+                  className="h-1.25 flex-1 rounded-[3px] transition-colors"
                   style={{ background: i <= step ? "#13b07a" : "#e5e5dd" }}
                 />
               ))}
@@ -170,7 +170,7 @@ export default function OnboardingPage() {
               {step === 2 && <StepGoals data={data} set={set} />}
               {step === 3 && <StepStyle data={data} set={set} />}
 
-              <div className="mt-[30px] flex items-center justify-between border-t border-[#f0f0ea] pt-6">
+              <div className="mt-7.5 flex items-center justify-between border-t border-[#f0f0ea] pt-6">
                 {step > 0 ? (
                   <button
                     onClick={() => go(-1)}
@@ -213,13 +213,13 @@ function StepBasics({
 }) {
   return (
     <>
-      <h2 className="mb-1.5 text-[24px] font-extrabold tracking-[-0.025em]">
+      <h2 className="mb-1.5 text-[24px] font-extrabold tracking-tight">
         First, the basics
       </h2>
       <p className="mb-7 text-[15px] leading-snug text-[#646b74]">
         A few quick details so we can shape the plan around you.
       </p>
-      <div className="mb-[26px]">
+      <div className="mb-6.5">
         <NumberField
           label="How old are you?"
           value={data.age}
@@ -229,7 +229,7 @@ function StepBasics({
           onChange={(v) => set({ age: v })}
         />
       </div>
-      <div className="mb-[26px]">
+      <div className="mb-6.5">
         <div className="mb-3 text-[14px] font-semibold text-[#3a4048]">
           What do you do?
         </div>
@@ -238,7 +238,7 @@ function StepBasics({
           placeholder="e.g. Software engineer"
           value={data.occupation}
           onChange={(e) => set({ occupation: e.target.value })}
-          className="w-full rounded-xl border border-[#e2e2da] bg-[#fafaf6] px-[15px] py-[13px] text-[15px] font-medium outline-none focus:border-[#13b07a] focus:bg-white"
+          className="w-full rounded-xl border border-[#e2e2da] bg-[#fafaf6] px-3.75 py-3.25 text-[15px] font-medium outline-hidden focus:border-[#13b07a] focus:bg-white"
         />
         <div className="mt-3 flex flex-wrap gap-2">
           {OCCUPATION_SUGGESTIONS.map((o) => {
@@ -289,13 +289,13 @@ function StepMoney({
 }) {
   return (
     <>
-      <h2 className="mb-1.5 text-[24px] font-extrabold tracking-[-0.025em]">
+      <h2 className="mb-1.5 text-[24px] font-extrabold tracking-tight">
         Where you are today
       </h2>
       <p className="mb-7 text-[15px] leading-snug text-[#646b74]">
         No judgment here — every starting point is a good one.
       </p>
-      <div className="mb-[26px]">
+      <div className="mb-6.5">
         <MoneyField
           label="Current savings & investments"
           usdValue={data.currentSavings}
@@ -316,7 +316,7 @@ function StepMoney({
           accent
         />
         <div className="mt-4 flex items-start gap-2.5 text-[12.5px] leading-relaxed text-[#787e87]">
-          <Check size={15} className="mt-px shrink-0 text-[#13b07a]" />
+          <Check size={15} className="mt-2801.25x shrink-0 text-[#13b07a]" />
           Even small, steady amounts compound into a lot over time. You can
           change this anytime.
         </div>
@@ -334,7 +334,7 @@ function StepGoals({
 }) {
   return (
     <>
-      <h2 className="mb-1.5 text-[24px] font-extrabold tracking-[-0.025em]">
+      <h2 className="mb-1.5 text-[24px] font-extrabold tracking-tight">
         What are you working toward?
       </h2>
       <p className="mb-6 text-[15px] leading-snug text-[#646b74]">
@@ -373,7 +373,7 @@ function StepGoals({
                 {g.desc}
               </div>
               {sel && (
-                <div className="absolute right-3.5 top-3.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-[#13b07a]">
+                <div className="absolute right-3.5 top-3.5 flex h-5.5 w-5.5 items-center justify-center rounded-full bg-[#13b07a]">
                   <Check size={12} className="text-white" strokeWidth={2.4} />
                 </div>
               )}
@@ -395,11 +395,11 @@ function StepGoals({
 
 function LevelBars({ level }: { level: number }) {
   return (
-    <span className="inline-flex h-[22px] items-end gap-1">
+    <span className="inline-flex h-5.5 items-end gap-1">
       {[1, 2, 3].map((i) => (
         <span
           key={i}
-          className="w-[5px] rounded-[2px]"
+          className="w-1.25 rounded-[2px]"
           style={{
             height: 7 + i * 4,
             background: i <= level ? "#13b07a" : "#daddd6",
@@ -426,7 +426,7 @@ function ChoiceRow({
   return (
     <button
       onClick={onClick}
-      className="flex w-full items-center gap-3.5 rounded-[14px] px-[18px] py-[15px] text-left transition hover:-translate-y-0.5"
+      className="flex w-full items-center gap-3.5 rounded-[14px] px-4.5 py-3.75 text-left transition hover:-translate-y-0.5"
       style={
         selected
           ? { border: "1.5px solid #13b07a", background: "#f1faf5" }
@@ -441,7 +441,7 @@ function ChoiceRow({
         </span>
       </span>
       {selected && (
-        <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-[#13b07a]">
+        <span className="flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full bg-[#13b07a]">
           <Check size={12} className="text-white" strokeWidth={2.4} />
         </span>
       )}
@@ -458,13 +458,13 @@ function StepStyle({
 }) {
   return (
     <>
-      <h2 className="mb-1.5 text-[24px] font-extrabold tracking-[-0.025em]">
+      <h2 className="mb-1.5 text-[24px] font-extrabold tracking-tight">
         Your investing style
       </h2>
       <p className="mb-5 text-[15px] leading-snug text-[#646b74]">
         This helps us suggest a mix you&apos;ll feel good about.
       </p>
-      <div className="mb-3 text-[13px] font-bold uppercase tracking-[0.05em] text-[#8a8f98]">
+      <div className="mb-3 text-[13px] font-bold uppercase tracking-wider text-[#8a8f98]">
         How do you feel about risk?
       </div>
       <div className="mb-7 flex flex-col gap-2.5">
@@ -479,7 +479,7 @@ function StepStyle({
           />
         ))}
       </div>
-      <div className="mb-3 text-[13px] font-bold uppercase tracking-[0.05em] text-[#8a8f98]">
+      <div className="mb-3 text-[13px] font-bold uppercase tracking-wider text-[#8a8f98]">
         How much have you invested before?
       </div>
       <div className="flex flex-col gap-2.5">
@@ -556,27 +556,27 @@ function Summary({
   return (
     <div className="mer-fade">
       <div className="mb-6 text-center">
-        <div className="mb-4 inline-flex h-[62px] w-[62px] items-center justify-center rounded-[18px] bg-[#13b07a] shadow-[0_10px_26px_rgba(19,176,122,0.35)]">
+        <div className="mb-4 inline-flex h-15.5 w-15.5 items-center justify-center rounded-[18px] bg-[#13b07a] shadow-[0_10px_26px_rgba(19,176,122,0.35)]">
           <Check size={30} className="text-white" strokeWidth={2.4} />
         </div>
         <h2 className="text-[28px] font-extrabold tracking-[-0.03em]">
           You&apos;re all set!
         </h2>
-        <p className="mx-auto mt-3 max-w-[400px] text-[15.5px] leading-relaxed text-[#646b74]">
+        <p className="mx-auto mt-3 max-w-100 text-[15.5px] leading-relaxed text-[#646b74]">
           Here&apos;s the plan we&apos;ve shaped from your answers. You can
           fine-tune any of it from your dashboard.
         </p>
       </div>
 
-      <div className="mb-[18px] rounded-[20px] bg-[#10141a] px-7 py-[26px] text-white">
+      <div className="mb-4.5 rounded-[20px] bg-[#10141a] px-7 py-6.5 text-white">
         <div className="mb-2 flex items-center gap-2 text-[13px] font-semibold text-[#9aa3ae]">
-          <span className="h-[7px] w-[7px] rounded-full bg-[#13b07a] shadow-[0_0_0_3px_rgba(19,176,122,0.25)]" />
+          <span className="h-1.75 w-1.75 rounded-full bg-[#13b07a] shadow-[0_0_0_3px_rgba(19,176,122,0.25)]" />
           Projected at age {data.retirementAge}
         </div>
         <div className="mer-num text-[42px] font-semibold tracking-[-0.03em]">
           {fmt(projection.bal)}
         </div>
-        <div className="mt-2 max-w-[380px] text-[13.5px] leading-relaxed text-[#a7aeb8]">
+        <div className="mt-2 max-w-95 text-[13.5px] leading-relaxed text-[#a7aeb8]">
           That&apos;s roughly{" "}
           <span className="mer-num font-semibold text-[#3fd49a]">
             {fmt(projection.income)}
@@ -592,7 +592,7 @@ function Summary({
             className="rounded-2xl border border-[#ecece4] bg-white p-5 shadow-[0_1px_2px_rgba(20,25,30,0.03)]"
           >
             <div className="mb-3.5 flex items-center justify-between">
-              <span className="text-[12px] font-bold uppercase tracking-[0.05em] text-[#8a8f98]">
+              <span className="text-[12px] font-bold uppercase tracking-wider text-[#8a8f98]">
                 {g.title}
               </span>
               <button
@@ -624,7 +624,7 @@ function Summary({
       <button
         onClick={onFinish}
         disabled={saving}
-        className="mt-[22px] block w-full rounded-[14px] bg-[#13b07a] py-4 text-center text-[16px] font-bold text-white shadow-[0_8px_22px_rgba(19,176,122,0.32)] transition hover:bg-[#0fa06d] disabled:opacity-60"
+        className="mt-5.5 block w-full rounded-[14px] bg-[#13b07a] py-4 text-center text-[16px] font-bold text-white shadow-[0_8px_22px_rgba(19,176,122,0.32)] transition hover:bg-[#0fa06d] disabled:opacity-60"
       >
         {saving ? "Saving…" : "Go to my dashboard"}
       </button>

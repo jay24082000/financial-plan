@@ -17,7 +17,7 @@ export function PriceCell({ price }: { price: number }) {
   }, [price]);
 
   return (
-    <span className={`mer-num rounded px-1.5 py-0.5 font-semibold ${flash}`}>
+    <span className={`mer-num rounded-sm px-1.5 py-0.5 font-semibold ${flash}`}>
       {isFinite(price) ? fmtPrice(price) : "—"}
     </span>
   );

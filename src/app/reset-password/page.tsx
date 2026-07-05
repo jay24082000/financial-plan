@@ -41,8 +41,8 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-[#f6f6f2] px-6 py-10">
-      <div className="w-full max-w-[412px]">
-        <div className="mb-[26px] flex items-center justify-center gap-2.5">
+      <div className="w-full max-w-103">
+        <div className="mb-6.5 flex items-center justify-center gap-2.5">
           <StaxLogo size={32} shadow={false} />
           <span className="text-[19px] font-extrabold tracking-tight">
             Stax
@@ -87,10 +87,10 @@ export default function ResetPasswordPage() {
               </p>
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-[15px]"
+                className="flex flex-col gap-3.75"
               >
                 <div>
-                  <label className="mb-[7px] block text-[12.5px] font-semibold text-[#5c636c]">
+                  <label className="mb-1.75 block text-[12.5px] font-semibold text-[#5c636c]">
                     New password
                   </label>
                   <input
@@ -102,7 +102,7 @@ export default function ResetPasswordPage() {
                   />
                 </div>
                 <div>
-                  <label className="mb-[7px] block text-[12.5px] font-semibold text-[#5c636c]">
+                  <label className="mb-1.75 block text-[12.5px] font-semibold text-[#5c636c]">
                     Confirm password
                   </label>
                   <input
@@ -136,10 +136,10 @@ export default function ResetPasswordPage() {
                 <button
                   type="submit"
                   disabled={!valid || submitting}
-                  className="mt-1 flex h-[50px] w-full items-center justify-center rounded-xl bg-[#10141a] text-[15px] font-bold text-white transition hover:bg-[#20272f] disabled:cursor-not-allowed disabled:opacity-45"
+                  className="mt-1 flex h-12.5 w-full items-center justify-center rounded-xl bg-[#10141a] text-[15px] font-bold text-white transition hover:bg-[#20272f] disabled:cursor-not-allowed disabled:opacity-45"
                 >
                   {submitting ? (
-                    <span className="h-[18px] w-[18px] animate-spin rounded-full border-[2.5px] border-white/35 border-t-white" />
+                    <span className="h-4.5 w-4.5 animate-spin rounded-full border-[2.5px] border-white/35 border-t-white" />
                   ) : (
                     "Update password"
                   )}

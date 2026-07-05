@@ -88,7 +88,7 @@ export default function MarketsPage() {
           ))}
         </div>
 
-        <Card className="!p-0 overflow-hidden">
+        <Card className="p-0! overflow-hidden">
           <div className="grid grid-cols-[2fr_1.2fr_1fr_1.2fr_0.9fr] gap-2 border-b border-[#f0f0e8] px-5 py-3 text-[11.5px] font-semibold uppercase tracking-wide text-[#9aa0a8]">
             <span>Asset</span>
             <span className="text-right">Price</span>

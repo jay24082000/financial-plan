@@ -70,7 +70,7 @@ export default function ProfilePage() {
     <PageShell>
       <div className="mb-6 flex items-end justify-between gap-5">
         <div>
-          <h1 className="text-[28px] font-extrabold tracking-[-0.025em]">
+          <h1 className="text-[28px] font-extrabold tracking-tight">
             Your profile
           </h1>
           <div className="mt-1 text-[14px] font-medium text-[#8a8f98]">
@@ -90,13 +90,13 @@ export default function ProfilePage() {
                   setDraft(view);
                   setEditing(false);
                 }}
-                className="rounded-[11px] border border-[#e4e4dc] bg-white px-4 py-[11px] text-[13.5px] font-semibold text-[#3a4048]"
+                className="rounded-[11px] border border-[#e4e4dc] bg-white px-4 py-2.75 text-[13.5px] font-semibold text-[#3a4048]"
               >
                 Cancel
               </button>
               <button
                 onClick={onSave}
-                className="rounded-[11px] bg-[#13b07a] px-5 py-[11px] text-[13.5px] font-bold text-white shadow-[0_4px_14px_rgba(19,176,122,0.3)]"
+                className="rounded-[11px] bg-[#13b07a] px-5 py-2.75 text-[13.5px] font-bold text-white shadow-[0_4px_14px_rgba(19,176,122,0.3)]"
               >
                 Save changes
               </button>
@@ -107,7 +107,7 @@ export default function ProfilePage() {
                 setDraft(view);
                 setEditing(true);
               }}
-              className="flex items-center gap-2 rounded-[11px] bg-[#10141a] px-[18px] py-[11px] text-[13.5px] font-semibold text-white"
+              className="flex items-center gap-2 rounded-[11px] bg-[#10141a] px-4.5 py-2.75 text-[13.5px] font-semibold text-white"
             >
               <Pencil size={14} /> Edit profile
             </button>
@@ -115,8 +115,8 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="mb-[18px] flex items-center gap-[18px] rounded-[18px] border border-[#ecece4] bg-white p-6 shadow-[0_1px_2px_rgba(20,25,30,0.03)]">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#13b07a] to-[#0c7a53] text-[22px] font-bold text-white shadow-[0_4px_14px_rgba(19,176,122,0.3)]">
+      <div className="mb-4.5 flex items-center gap-4.5 rounded-[18px] border border-[#ecece4] bg-white p-6 shadow-[0_1px_2px_rgba(20,25,30,0.03)]">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-[#13b07a] to-[#0c7a53] text-[22px] font-bold text-white shadow-[0_4px_14px_rgba(19,176,122,0.3)]">
           {initials(fullName, email)}
         </div>
         <div className="min-w-0 flex-1">
@@ -138,7 +138,7 @@ export default function ProfilePage() {
       </div>
 
       <Section title="Personal">
-        <div className="grid gap-x-7 gap-y-[22px] sm:grid-cols-2">
+        <div className="grid gap-x-7 gap-y-5.5 sm:grid-cols-2">
           <Field label="Age">
             {editing ? (
               <NumberField
@@ -160,7 +160,7 @@ export default function ProfilePage() {
                 value={d.occupation}
                 onChange={(e) => set({ occupation: e.target.value })}
                 placeholder="e.g. Software engineer"
-                className="w-full rounded-xl border border-[#e2e2da] bg-[#fafaf6] px-[13px] py-[11px] text-[15px] font-medium outline-none focus:border-[#13b07a] focus:bg-white"
+                className="w-full rounded-xl border border-[#e2e2da] bg-[#fafaf6] px-3.25 py-2.75 text-[15px] font-medium outline-hidden focus:border-[#13b07a] focus:bg-white"
               />
             ) : (
               <Value>{d.occupation || "Not set"}</Value>
@@ -170,7 +170,7 @@ export default function ProfilePage() {
       </Section>
 
       <Section title="Finances">
-        <div className="grid gap-x-7 gap-y-[22px] sm:grid-cols-3">
+        <div className="grid gap-x-7 gap-y-5.5 sm:grid-cols-3">
           <Field label="Monthly income">
             {editing ? (
               <MoneyField
@@ -234,10 +234,10 @@ export default function ProfilePage() {
             <Value>{GOAL_LABEL[d.goal]}</Value>
           )}
         </Field>
-        <div className="mt-[22px]">
+        <div className="mt-5.5">
           <Field label="Target retirement age">
             {editing ? (
-              <div className="max-w-[360px]">
+              <div className="max-w-90">
                 <NumberField
                   label=""
                   value={d.retirementAge}
@@ -269,7 +269,7 @@ export default function ProfilePage() {
             <Value>{RISK_LABEL[d.risk]}</Value>
           )}
         </Field>
-        <div className="mt-[22px]">
+        <div className="mt-5.5">
           <Field label="Investing experience">
             {editing ? (
               <Segmented
@@ -303,7 +303,7 @@ function Section({
 }) {
   return (
     <div
-      className={`rounded-[18px] border border-[#ecece4] bg-white p-6 shadow-[0_1px_2px_rgba(20,25,30,0.03)] ${last ? "" : "mb-[18px]"}`}
+      className={`rounded-[18px] border border-[#ecece4] bg-white p-6 shadow-[0_1px_2px_rgba(20,25,30,0.03)] ${last ? "" : "mb-4.5"}`}
     >
       <div className="mb-5 text-[12px] font-bold uppercase tracking-[0.08em] text-[#0e9466]">
         {title}
@@ -366,7 +366,7 @@ function Segmented({
           <button
             key={o.key}
             onClick={() => onChange(o.key)}
-            className="rounded-[11px] px-4 py-[9px] text-[13.5px] font-semibold transition"
+            className="rounded-[11px] px-4 py-2.25 text-[13.5px] font-semibold transition"
             style={
               sel
                 ? {

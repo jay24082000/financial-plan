@@ -22,7 +22,7 @@ export function PageHeader({
 
 export function PageShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-[1200px] px-5 pb-14 pt-1 md:px-10">
+    <div className="mx-auto max-w-300 px-5 pb-14 pt-1 md:px-10">
       {children}
     </div>
   );

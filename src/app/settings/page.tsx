@@ -131,8 +131,8 @@ export default function SettingsPage() {
 
   return (
     <PageShell>
-      <div className="mb-[26px]">
-        <h1 className="text-[28px] font-extrabold tracking-[-0.025em]">
+      <div className="mb-6.5">
+        <h1 className="text-[28px] font-extrabold tracking-tight">
           Settings
         </h1>
         <div className="mt-1 text-[14px] font-medium text-[#8a8f98]">
@@ -141,7 +141,7 @@ export default function SettingsPage() {
       </div>
 
       {notice && (
-        <div className="mb-[18px] rounded-[14px] border border-[#d2eadd] bg-[#eef8f2] px-4 py-3 text-[13.5px] font-medium text-[#0c7a53]">
+        <div className="mb-4.5 rounded-[14px] border border-[#d2eadd] bg-[#eef8f2] px-4 py-3 text-[13.5px] font-medium text-[#0c7a53]">
           {notice}
         </div>
       )}
@@ -155,7 +155,7 @@ export default function SettingsPage() {
                 type="email"
                 value={emailDraft}
                 onChange={(e) => setEmailDraft(e.target.value)}
-                className="mt-2 w-full max-w-[320px] rounded-xl border border-[#e2e2da] bg-[#fafaf6] px-[13px] py-2.5 text-[14px] outline-none focus:border-[#13b07a] focus:bg-white"
+                className="mt-2 w-full max-w-80 rounded-xl border border-[#e2e2da] bg-[#fafaf6] px-3.25 py-2.5 text-[14px] outline-hidden focus:border-[#13b07a] focus:bg-white"
               />
             ) : (
               <div className="mt-0.5 text-[13.5px] text-[#787e87]">
@@ -188,7 +188,7 @@ export default function SettingsPage() {
                 value={newPw}
                 onChange={(e) => setNewPw(e.target.value)}
                 placeholder="New password (min 8 chars)"
-                className="mt-2 w-full max-w-[320px] rounded-xl border border-[#e2e2da] bg-[#fafaf6] px-[13px] py-2.5 text-[14px] outline-none focus:border-[#13b07a] focus:bg-white"
+                className="mt-2 w-full max-w-80 rounded-xl border border-[#e2e2da] bg-[#fafaf6] px-3.25 py-2.5 text-[14px] outline-hidden focus:border-[#13b07a] focus:bg-white"
               />
             ) : (
               <div className="mer-num mt-1 text-[14px] tracking-[0.12em] text-[#787e87]">
@@ -247,10 +247,10 @@ export default function SettingsPage() {
       </Card>
 
       <div className="rounded-[18px] border border-[#f0dad8] bg-white px-6 shadow-[0_1px_2px_rgba(20,25,30,0.03)]">
-        <div className="py-[18px] pt-[18px] text-[12px] font-bold uppercase tracking-[0.08em] text-[#c0463f]">
+        <div className="py-4.5 pt-4.5 text-[12px] font-bold uppercase tracking-[0.08em] text-[#c0463f]">
           Danger zone
         </div>
-        <div className="flex flex-col items-start justify-between gap-3 border-t border-[#f7e9e7] py-[18px] sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-3 border-t border-[#f7e9e7] py-4.5 sm:flex-row sm:items-center">
           <div>
             <div className="text-[14.5px] font-bold">Sign out</div>
             <div className="mt-0.5 text-[13px] text-[#787e87]">
@@ -260,13 +260,13 @@ export default function SettingsPage() {
           <form action="/auth/signout" method="post" className="shrink-0">
             <button
               type="submit"
-              className="rounded-[11px] bg-[#10141a] px-[18px] py-2.5 text-[13.5px] font-semibold text-white"
+              className="rounded-[11px] bg-[#10141a] px-4.5 py-2.5 text-[13.5px] font-semibold text-white"
             >
               Sign out
             </button>
           </form>
         </div>
-        <div className="flex flex-col items-start justify-between gap-3 border-t border-[#f7e9e7] py-[18px] sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-3 border-t border-[#f7e9e7] py-4.5 sm:flex-row sm:items-center">
           <div>
             <div className="text-[14.5px] font-bold text-[#b23a33]">
               Delete account
@@ -277,7 +277,7 @@ export default function SettingsPage() {
           </div>
           <button
             onClick={deleteAccount}
-            className="shrink-0 rounded-[11px] border border-[#e8c9c5] bg-white px-[18px] py-2.5 text-[13.5px] font-semibold text-[#c0463f] transition hover:bg-[#fbf1f0]"
+            className="shrink-0 rounded-[11px] border border-[#e8c9c5] bg-white px-4.5 py-2.5 text-[13.5px] font-semibold text-[#c0463f] transition hover:bg-[#fbf1f0]"
           >
             Delete account
           </button>
@@ -295,8 +295,8 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mb-[18px] rounded-[18px] border border-[#ecece4] bg-white px-6 shadow-[0_1px_2px_rgba(20,25,30,0.03)]">
-      <div className="py-[18px] pt-[18px] text-[12px] font-bold uppercase tracking-[0.08em] text-[#0e9466]">
+    <div className="mb-4.5 rounded-[18px] border border-[#ecece4] bg-white px-6 shadow-[0_1px_2px_rgba(20,25,30,0.03)]">
+      <div className="py-4.5 pt-4.5 text-[12px] font-bold uppercase tracking-[0.08em] text-[#0e9466]">
         {title}
       </div>
       {children}
@@ -306,7 +306,7 @@ function Card({
 
 function Row({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col items-start justify-between gap-3 border-t border-[#f2f2ec] py-[18px] sm:flex-row sm:items-center">
+    <div className="flex flex-col items-start justify-between gap-3 border-t border-[#f2f2ec] py-4.5 sm:flex-row sm:items-center">
       {children}
     </div>
   );
@@ -356,14 +356,14 @@ function Segmented({
   onChange: (k: string) => void;
 }) {
   return (
-    <div className="flex shrink-0 gap-[5px] rounded-[11px] bg-[#f1f1eb] p-1">
+    <div className="flex shrink-0 gap-1.25 rounded-[11px] bg-[#f1f1eb] p-1">
       {options.map((o) => {
         const sel = value === o.key;
         return (
           <button
             key={o.key}
             onClick={() => onChange(o.key)}
-            className="rounded-lg px-[15px] py-[7px] text-[13px] font-semibold transition"
+            className="rounded-lg px-3.75 py-1.75 text-[13px] font-semibold transition"
             style={
               sel
                 ? {
@@ -386,12 +386,12 @@ function Toggle({ on, onClick }: { on: boolean; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="relative h-[27px] w-[46px] shrink-0 rounded-full transition-colors"
+      className="relative h-6.75 w-11.5 shrink-0 rounded-full transition-colors"
       style={{ background: on ? "#13b07a" : "#d7d7cf" }}
       aria-pressed={on}
     >
       <span
-        className="absolute left-[3px] top-[3px] h-[21px] w-[21px] rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.25)] transition-transform"
+        className="absolute left-0.75 top-0.75 h-5.25 w-5.25 rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.25)] transition-transform"
         style={{ transform: on ? "translateX(19px)" : "translateX(0)" }}
       />
     </button>

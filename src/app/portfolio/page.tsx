@@ -1,7 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Plus, X, Trash2, Pencil } from "lucide-react";
+import { Plus, Trash2, Pencil } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Card, CardLabel, SectionTitle } from "@/components/Card";
 import { PageHeader, PageShell } from "@/components/PageHeader";
 import { AssetIcon, CLASS_COLOR } from "@/components/AssetIcon";
@@ -62,14 +68,14 @@ export default function PortfolioPage() {
           right={
             <button
               onClick={() => setShowAdd(true)}
-              className="flex items-center gap-2 rounded-[11px] bg-[#10141a] px-[18px] py-[11px] text-[13.5px] font-semibold text-white"
+              className="flex items-center gap-2 rounded-[11px] bg-[#10141a] px-4.5 py-2.75 text-[13.5px] font-semibold text-white"
             >
               <Plus size={16} /> Add holding
             </button>
           }
         />
 
-        <div className="mb-[18px] grid gap-[18px] sm:grid-cols-3">
+        <div className="mb-4.5 grid gap-4.5 sm:grid-cols-3">
           <Card>
             <CardLabel>Total value</CardLabel>
             <div className="mer-num mt-1.5 text-[26px] font-semibold">
@@ -108,8 +114,8 @@ export default function PortfolioPage() {
           </Card>
         </div>
 
-        <div className="grid items-start gap-[18px] lg:grid-cols-[1.7fr_1fr]">
-          <Card className="!p-0 overflow-hidden">
+        <div className="grid items-start gap-4.5 lg:grid-cols-[1.7fr_1fr]">
+          <Card className="p-0! overflow-hidden">
             <div className="hidden grid-cols-[1.6fr_1fr_1fr_1fr_1.2fr_0.7fr] gap-2 border-b border-[#f0f0e8] px-5 py-3 text-[11.5px] font-semibold uppercase tracking-wide text-[#9aa0a8] md:grid">
               <span>Asset</span>
               <span className="text-right">Qty</span>
@@ -207,7 +213,7 @@ export default function PortfolioPage() {
                   >
                     <span className="flex items-center gap-2">
                       <span
-                        className="h-[9px] w-[9px] rounded-[3px]"
+                        className="h-2.25 w-2.25 rounded-[3px]"
                         style={{ background: d.color }}
                       />
                       {d.label}
@@ -278,27 +284,15 @@ function HoldingModal({
   const valid = meta && Number(quantity) > 0 && Number(avgCost) > 0;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4"
-      onClick={onClose}
-    >
-      <div
-        className="w-full max-w-md rounded-[18px] bg-white p-6 shadow-xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-[18px] font-extrabold">
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-md rounded-[18px] border-[#ecece4] bg-white p-6">
+        <DialogHeader>
+          <DialogTitle className="text-[18px] font-extrabold">
             {isEdit ? "Edit holding" : "Add holding"}
-          </h2>
-          <button
-            onClick={onClose}
-            className="rounded-lg p-1.5 text-[#9aa0a8] hover:bg-[#f6f6f2]"
-          >
-            <X size={18} />
-          </button>
-        </div>
+          </DialogTitle>
+        </DialogHeader>
 
-        <div className="flex flex-col gap-4">
+        <div className="mt-2 flex flex-col gap-4">
           <label className="flex flex-col gap-1.5">
             <span className="text-[13px] font-semibold text-[#3a4048]">
               Asset
@@ -306,7 +300,7 @@ function HoldingModal({
             <select
               value={symbol}
               onChange={(e) => setSymbol(e.target.value)}
-              className="rounded-[10px] border border-[#e3e3da] bg-white px-3 py-2.5 text-[14px] outline-none focus:border-[#13b07a]"
+              className="rounded-[10px] border border-[#e3e3da] bg-white px-3 py-2.5 text-[14px] outline-hidden focus:border-[#13b07a]"
             >
               {ALL_SYMBOLS.map((s) => (
                 <option key={s.symbol} value={s.symbol}>
@@ -325,7 +319,7 @@ function HoldingModal({
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
               placeholder="0"
-              className="mer-num rounded-[10px] border border-[#e3e3da] px-3 py-2.5 text-[14px] outline-none focus:border-[#13b07a]"
+              className="mer-num rounded-[10px] border border-[#e3e3da] px-3 py-2.5 text-[14px] outline-hidden focus:border-[#13b07a]"
             />
           </label>
 
@@ -338,7 +332,7 @@ function HoldingModal({
               value={avgCost}
               onChange={(e) => setAvgCost(e.target.value)}
               placeholder="0.00"
-              className="mer-num rounded-[10px] border border-[#e3e3da] px-3 py-2.5 text-[14px] outline-none focus:border-[#13b07a]"
+              className="mer-num rounded-[10px] border border-[#e3e3da] px-3 py-2.5 text-[14px] outline-hidden focus:border-[#13b07a]"
             />
           </label>
 
@@ -359,7 +353,7 @@ function HoldingModal({
             {isEdit ? "Save changes" : "Add to portfolio"}
           </button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

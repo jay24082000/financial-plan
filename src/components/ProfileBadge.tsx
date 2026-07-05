@@ -43,7 +43,7 @@ export function ProfileBadge({ className = "" }: { className?: string }) {
   }, []);
 
   if (!ready) {
-    return <div className={`h-[38px] w-[38px] ${className}`} />;
+    return <div className={`h-9.5 w-9.5 ${className}`} />;
   }
 
   if (!user) {
@@ -67,13 +67,13 @@ export function ProfileBadge({ className = "" }: { className?: string }) {
     >
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-gradient-to-br from-[#13b07a] to-[#0c7a53] text-[13px] font-bold text-white shadow-[0_0_0_3px_rgba(19,176,122,0.18)]"
+        className="flex h-9.5 w-9.5 items-center justify-center rounded-full bg-linear-to-br from-[#13b07a] to-[#0c7a53] text-[13px] font-bold text-white shadow-[0_0_0_3px_rgba(19,176,122,0.18)]"
       >
         {initials(user)}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-[46px] w-56 overflow-hidden rounded-[14px] border border-[#ecece4] bg-white shadow-[0_8px_28px_rgba(20,25,30,0.12)]">
+        <div className="absolute right-0 top-11.5 w-56 overflow-hidden rounded-[14px] border border-[#ecece4] bg-white shadow-[0_8px_28px_rgba(20,25,30,0.12)]">
           <div className="border-b border-[#f1f1ea] px-4 py-3">
             <div className="truncate text-[13.5px] font-bold">{name}</div>
             <div className="truncate text-[12px] text-[#9aa0a8]">

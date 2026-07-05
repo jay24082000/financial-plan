@@ -105,7 +105,7 @@ export default function DashboardPage() {
 
   return (
     <>
-      <div className="mx-auto max-w-[1200px] px-5 pb-14 pt-3 md:px-10">
+      <div className="mx-auto max-w-300 px-5 pb-14 pt-3 md:px-10">
         <div className="mb-6 flex items-end justify-between gap-5">
           <div>
             <div className="mb-1 text-[13px] font-medium text-[#8a8f98]">
@@ -117,15 +117,15 @@ export default function DashboardPage() {
           </div>
           <Link
             href="/portfolio"
-            className="flex shrink-0 items-center gap-2 whitespace-nowrap rounded-[11px] bg-[#10141a] px-[18px] py-[11px] text-[13.5px] font-semibold text-white"
+            className="flex shrink-0 items-center gap-2 whitespace-nowrap rounded-[11px] bg-[#10141a] px-4.5 py-2.75 text-[13.5px] font-semibold text-white"
           >
-            <span className="-mt-px text-[17px] leading-none">+</span> Add
+            <span className="-mt-1021x text-[17px] leading-none">+</span> Add
             holding
           </Link>
         </div>
 
-        <div className="mb-[18px] grid gap-[18px] lg:grid-cols-[1.9fr_1fr]">
-          <Card className="!p-6">
+        <div className="mb-4.5 grid gap-4.5 lg:grid-cols-[1.9fr_1fr]">
+          <Card className="p-6!">
             <div className="flex items-start justify-between">
               <div>
                 <CardLabel>Total net worth</CardLabel>
@@ -156,7 +156,7 @@ export default function DashboardPage() {
                   <button
                     key={r}
                     onClick={() => setRange(r)}
-                    className={`rounded-[7px] px-[9px] py-[5px] text-[12px] font-semibold transition ${
+                    className={`rounded-[7px] px-2.25 py-1.25 text-[12px] font-semibold transition ${
                       range === r
                         ? "bg-white text-[#1a1d21] shadow-[0_1px_2px_rgba(0,0,0,0.06)]"
                         : "text-[#8a8f98]"
@@ -171,7 +171,7 @@ export default function DashboardPage() {
               {chartData.length >= 2 ? (
                 <NetWorthChart data={chartData} />
               ) : (
-                <div className="flex h-[180px] flex-col items-center justify-center text-center text-[13px] text-[#9aa0a8]">
+                <div className="flex h-45 flex-col items-center justify-center text-center text-[13px] text-[#9aa0a8]">
                   <span>Your net-worth history starts building today.</span>
                   <span className="mt-1 text-[12px]">
                     Come back tomorrow to see the trend.
@@ -181,7 +181,7 @@ export default function DashboardPage() {
             </div>
           </Card>
 
-          <div className="flex flex-col gap-[18px]">
+          <div className="flex flex-col gap-4.5">
             <StatCard
               label="Total gain"
               value={fmtSigned(totals.totalGain)}
@@ -198,10 +198,10 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="grid gap-[18px] lg:grid-cols-3">
+        <div className="grid gap-4.5 lg:grid-cols-3">
           <Card>
             <SectionTitle>Allocation</SectionTitle>
-            <div className="mb-[18px] mt-4 flex h-[11px] overflow-hidden rounded-md bg-[#f1f1ea]">
+            <div className="mb-4.5 mt-4 flex h-2.75 overflow-hidden rounded-md bg-[#f1f1ea]">
               {allocation.map((a) => (
                 <div
                   key={a.cls}
@@ -217,7 +217,7 @@ export default function DashboardPage() {
                 >
                   <div className="flex items-center gap-2.5">
                     <span
-                      className="h-[9px] w-[9px] rounded-[3px]"
+                      className="h-2.25 w-2.25 rounded-[3px]"
                       style={{ background: a.color }}
                     />
                     <span className="font-medium text-[#3a4048]">
@@ -286,7 +286,7 @@ export default function DashboardPage() {
             <div className="mb-4 flex items-center justify-between">
               <SectionTitle>Today&apos;s movers</SectionTitle>
               <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#0e9466]">
-                <span className="h-[6px] w-[6px] rounded-full bg-[#13b07a]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#13b07a]" />
                 LIVE
               </span>
             </div>

@@ -83,7 +83,7 @@ export default function RetirementPage() {
         />
 
         <div
-          className="mb-[18px] rounded-[18px] border p-5"
+          className="mb-4.5 rounded-[18px] border p-5"
           style={{
             background: onTrack ? "#eef8f2" : "#fbf4e6",
             borderColor: onTrack ? "#d2eadd" : "#efe0be",
@@ -125,7 +125,7 @@ export default function RetirementPage() {
           </div>
         </div>
 
-        <div className="grid gap-[18px] lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="grid gap-4.5 lg:grid-cols-[0.85fr_1.15fr]">
           <Card>
             <SectionTitle>Your details</SectionTitle>
             <div className="mt-5 flex flex-col gap-5">
@@ -192,7 +192,7 @@ export default function RetirementPage() {
             <div className="mb-4 flex items-center justify-between">
               <SectionTitle>Savings projection</SectionTitle>
               <span className="flex items-center gap-1.5 text-[12px] text-[#9aa0a8]">
-                <span className="h-[2px] w-4 bg-[#d29b26]" /> Goal
+                <span className="h-0.5 w-4 bg-[#d29b26]" /> Goal
               </span>
             </div>
             <ProjectionChart data={chartData} target={result.requiredNestEgg} />
