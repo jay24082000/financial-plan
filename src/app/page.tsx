@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
+import { StaxLogo } from "@/components/StaxLogo";
 
 function profileOf(user: User) {
   const name =
@@ -166,17 +167,7 @@ const HERO_LINE =
   "M0 120 L36 110 L72 116 L108 96 L144 103 L180 80 L216 87 L252 63 L288 70 L324 47 L360 53 L396 31 L432 22 L480 12";
 
 function Logo({ size = 30 }: { size?: number }) {
-  return (
-    <div
-      className="flex items-center justify-center rounded-lg bg-[#13b07a]"
-      style={{ width: size, height: size }}
-    >
-      <div
-        className="-rotate-45 rounded-full border-[2.5px] border-white border-r-transparent"
-        style={{ width: size * 0.4, height: size * 0.4 }}
-      />
-    </div>
-  );
+  return <StaxLogo size={size} />;
 }
 
 export default async function LandingPage() {

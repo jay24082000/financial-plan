@@ -12,7 +12,8 @@ import { useAllPrices } from "@/hooks/useAllPrices";
 import { useMounted } from "@/hooks/useMounted";
 import { computeTotals, CLASS_ORDER } from "@/lib/portfolio-calc";
 import { ALL_SYMBOLS, metaForSymbol } from "@/lib/types";
-import { formatUSD, formatSignedUSD, formatPercent } from "@/lib/format";
+import { formatPercent } from "@/lib/format";
+import { useCurrency } from "@/components/CurrencyProvider";
 
 const CLASS_LABEL: Record<string, string> = {
   stock: "Stocks",
@@ -24,6 +25,7 @@ const CLASS_LABEL: Record<string, string> = {
 
 export default function PortfolioPage() {
   const mounted = useMounted();
+  const { fmt, fmtSigned } = useCurrency();
   const { holdings, addHolding, updateHolding, removeHolding } = useHoldings();
   const { prices } = useAllPrices();
   const [showAdd, setShowAdd] = useState(false);
@@ -71,7 +73,7 @@ export default function PortfolioPage() {
           <Card>
             <CardLabel>Total value</CardLabel>
             <div className="mer-num mt-1.5 text-[26px] font-semibold">
-              {formatUSD(totals.holdingsValue)}
+              {fmt(totals.holdingsValue)}
             </div>
           </Card>
           <Card>
@@ -80,7 +82,7 @@ export default function PortfolioPage() {
               className="mer-num mt-1.5 text-[26px] font-semibold"
               style={{ color: gainPos ? "#0e9466" : "#cf4842" }}
             >
-              {formatSignedUSD(totals.totalGain)}
+              {fmtSigned(totals.totalGain)}
             </div>
             <div
               className="mer-num text-[13px] font-semibold"
@@ -95,7 +97,7 @@ export default function PortfolioPage() {
               className="mer-num mt-1.5 text-[26px] font-semibold"
               style={{ color: totals.dayChange >= 0 ? "#0e9466" : "#cf4842" }}
             >
-              {formatSignedUSD(totals.dayChange)}
+              {fmtSigned(totals.dayChange)}
             </div>
             <div
               className="mer-num text-[13px] font-semibold"
@@ -136,22 +138,20 @@ export default function PortfolioPage() {
                     {h.quantity}
                   </div>
                   <div className="mer-num text-right text-[13px]">
-                    {formatUSD(h.avgCost, 2)}
+                    {fmt(h.avgCost, 2)}
                   </div>
                   <div className="mer-num text-right text-[13px]">
-                    {isFinite(h.price) && h.price > 0
-                      ? formatUSD(h.price, 2)
-                      : "…"}
+                    {isFinite(h.price) && h.price > 0 ? fmt(h.price, 2) : "…"}
                   </div>
                   <div className="text-right">
                     <div className="mer-num text-[13.5px] font-semibold">
-                      {formatUSD(h.value)}
+                      {fmt(h.value)}
                     </div>
                     <div
                       className="mer-num text-[12px] font-semibold"
                       style={{ color: pos ? "#0e9466" : "#cf4842" }}
                     >
-                      {formatSignedUSD(h.gain)} ({formatPercent(h.gainPct)})
+                      {fmtSigned(h.gain)} ({formatPercent(h.gainPct)})
                     </div>
                   </div>
                   <div className="flex justify-end gap-0.5">
@@ -262,6 +262,7 @@ function HoldingModal({
     avgCost: number;
   }) => void;
 }) {
+  const { currency, toUSD, fromUSD, symbol: curSymbol } = useCurrency();
   const isEdit = !!initial;
   const [symbol, setSymbol] = useState(
     initial?.symbol ?? ALL_SYMBOLS[0].symbol,
@@ -270,7 +271,7 @@ function HoldingModal({
     initial ? String(initial.quantity) : "",
   );
   const [avgCost, setAvgCost] = useState(
-    initial ? String(initial.avgCost) : "",
+    initial ? String(Math.round(fromUSD(initial.avgCost) * 100) / 100) : "",
   );
 
   const meta = metaForSymbol(symbol);
@@ -330,7 +331,7 @@ function HoldingModal({
 
           <label className="flex flex-col gap-1.5">
             <span className="text-[13px] font-semibold text-[#3a4048]">
-              Average cost (USD)
+              Average cost ({currency} {curSymbol})
             </span>
             <input
               type="number"
@@ -350,7 +351,7 @@ function HoldingModal({
                 symbol: meta.symbol,
                 label: meta.display,
                 quantity: Number(quantity),
-                avgCost: Number(avgCost),
+                avgCost: toUSD(Number(avgCost)),
               });
             }}
             className="mt-1 rounded-[11px] bg-[#10141a] py-3 text-[14px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"

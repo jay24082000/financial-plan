@@ -2,14 +2,16 @@
 
 import { useMemo, useState } from "react";
 import { Card, SectionTitle } from "@/components/Card";
-import { RangeSlider } from "@/components/RangeSlider";
+import { MoneyField, NumberField } from "@/components/Fields";
 import { PageHeader, PageShell } from "@/components/PageHeader";
 import { GrowthChart } from "@/components/GrowthChart";
 import { Disclaimer } from "@/components/Disclaimer";
+import { useCurrency } from "@/components/CurrencyProvider";
 import { compoundSeries } from "@/lib/finance";
-import { formatUSD, formatSignedUSD, formatPercent } from "@/lib/format";
+import { formatPercent } from "@/lib/format";
 
 export default function CalculatorPage() {
+  const { fmt, fmtSigned } = useCurrency();
   const [initial, setInitial] = useState(10000);
   const [monthly, setMonthly] = useState(600);
   const [annualReturn, setAnnualReturn] = useState(7);
@@ -38,39 +40,37 @@ export default function CalculatorPage() {
           <Card>
             <SectionTitle>Assumptions</SectionTitle>
             <div className="mt-5 flex flex-col gap-5">
-              <RangeSlider
+              <MoneyField
                 label="Initial deposit"
-                value={initial}
-                min={0}
-                max={200000}
-                step={1000}
-                displayValue={formatUSD(initial)}
-                onChange={setInitial}
+                usdValue={initial}
+                usdMin={0}
+                usdMax={200000}
+                usdStep={1000}
+                onChangeUSD={setInitial}
               />
-              <RangeSlider
+              <MoneyField
                 label="Monthly contribution"
-                value={monthly}
-                min={0}
-                max={10000}
-                step={50}
-                displayValue={formatUSD(monthly)}
-                onChange={setMonthly}
+                usdValue={monthly}
+                usdMin={0}
+                usdMax={10000}
+                usdStep={50}
+                onChangeUSD={setMonthly}
               />
-              <RangeSlider
+              <NumberField
                 label="Expected annual return"
                 value={annualReturn}
                 min={0}
                 max={15}
                 step={0.5}
-                displayValue={`${annualReturn.toFixed(1)}%`}
+                suffix="%"
                 onChange={setAnnualReturn}
               />
-              <RangeSlider
+              <NumberField
                 label="Time horizon"
                 value={years}
                 min={1}
                 max={50}
-                displayValue={`${years} yrs`}
+                suffix=" yrs"
                 onChange={setYears}
               />
             </div>
@@ -84,11 +84,10 @@ export default function CalculatorPage() {
                     Projected balance in {years} yrs
                   </div>
                   <div className="mer-num mt-2 text-[40px] font-semibold tracking-tight">
-                    {formatUSD(final.balance)}
+                    {fmt(final.balance)}
                   </div>
                   <div className="mer-num mt-1 text-[14px] font-semibold text-[#46ad80]">
-                    {formatSignedUSD(totalGrowth)} growth ·{" "}
-                    {formatPercent(gainPct)}
+                    {fmtSigned(totalGrowth)} growth · {formatPercent(gainPct)}
                   </div>
                 </div>
               </div>
@@ -112,7 +111,7 @@ export default function CalculatorPage() {
                     You put in
                   </div>
                   <div className="mer-num mt-1 text-[20px] font-bold">
-                    {formatUSD(totalContributed)}
+                    {fmt(totalContributed)}
                   </div>
                 </div>
                 <div>
@@ -120,7 +119,7 @@ export default function CalculatorPage() {
                     Growth earned
                   </div>
                   <div className="mer-num mt-1 text-[20px] font-bold text-[#0e9466]">
-                    {formatUSD(totalGrowth)}
+                    {fmt(totalGrowth)}
                   </div>
                 </div>
               </div>

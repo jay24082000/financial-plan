@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { formatPrice } from "@/lib/format";
+import { useCurrency } from "@/components/CurrencyProvider";
 
 export function PriceCell({ price }: { price: number }) {
+  const { fmtPrice } = useCurrency();
   const prev = useRef(price);
   const [flash, setFlash] = useState<"" | "flash-up" | "flash-down">("");
 
@@ -17,7 +18,7 @@ export function PriceCell({ price }: { price: number }) {
 
   return (
     <span className={`mer-num rounded px-1.5 py-0.5 font-semibold ${flash}`}>
-      {isFinite(price) ? formatPrice(price) : "—"}
+      {isFinite(price) ? fmtPrice(price) : "—"}
     </span>
   );
 }

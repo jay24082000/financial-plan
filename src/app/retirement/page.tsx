@@ -1,16 +1,20 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Check, AlertTriangle } from "lucide-react";
 import { Card, SectionTitle } from "@/components/Card";
-import { RangeSlider } from "@/components/RangeSlider";
+import { MoneyField, NumberField } from "@/components/Fields";
 import { PageHeader, PageShell } from "@/components/PageHeader";
 import { ProjectionChart } from "@/components/ProjectionChart";
 import { Disclaimer } from "@/components/Disclaimer";
+import { useCurrency } from "@/components/CurrencyProvider";
 import { calculateRetirement } from "@/lib/finance";
-import { formatUSD, formatPercent } from "@/lib/format";
+import { useProfile } from "@/hooks/useProfile";
+import { expectedReturnForRisk } from "@/lib/profile";
 
 export default function RetirementPage() {
+  const { fmt } = useCurrency();
+  const { profile } = useProfile();
   const [currentAge, setCurrentAge] = useState(32);
   const [retirementAge, setRetirementAge] = useState(65);
   const [currentSavings, setCurrentSavings] = useState(85000);
@@ -18,6 +22,18 @@ export default function RetirementPage() {
   const [expectedReturn, setExpectedReturn] = useState(7);
   const [inflation, setInflation] = useState(3);
   const [monthlyExpense, setMonthlyExpense] = useState(4000);
+
+  const prefilled = useRef(false);
+  useEffect(() => {
+    if (!profile || prefilled.current) return;
+    prefilled.current = true;
+    setCurrentAge(profile.age);
+    setRetirementAge(profile.retirementAge);
+    setCurrentSavings(profile.currentSavings);
+    setMonthlyContribution(profile.monthlyContribution);
+    setExpectedReturn(expectedReturnForRisk(profile.risk));
+    setMonthlyExpense(Math.round(profile.monthlyIncome * 0.7) || 4000);
+  }, [profile]);
 
   const result = useMemo(
     () =>
@@ -90,8 +106,8 @@ export default function RetirementPage() {
                 </div>
                 <div className="mt-0.5 text-[13.5px] text-[#5a6068]">
                   {onTrack
-                    ? `Projected to exceed your goal by ${formatUSD(gap)} at age ${retirementAge}.`
-                    : `You're ${formatUSD(gap)} short. Try raising your monthly contribution to ${formatUSD(result.requiredMonthlyContribution)}.`}
+                    ? `Projected to exceed your goal by ${fmt(gap)} at age ${retirementAge}.`
+                    : `You're ${fmt(gap)} short. Try raising your monthly contribution to ${fmt(result.requiredMonthlyContribution)}.`}
                 </div>
               </div>
             </div>
@@ -113,70 +129,61 @@ export default function RetirementPage() {
           <Card>
             <SectionTitle>Your details</SectionTitle>
             <div className="mt-5 flex flex-col gap-5">
-              <RangeSlider
+              <NumberField
                 label="Current age"
                 value={currentAge}
                 min={18}
                 max={70}
-                displayValue={`${currentAge}`}
-                onChange={(v) =>
-                  setCurrentAge(Math.min(v, retirementAge - 1))
-                }
+                onChange={setCurrentAge}
               />
-              <RangeSlider
+              <NumberField
                 label="Retirement age"
                 value={retirementAge}
                 min={45}
                 max={80}
-                displayValue={`${retirementAge}`}
-                onChange={(v) =>
-                  setRetirementAge(Math.max(v, currentAge + 1))
-                }
+                onChange={setRetirementAge}
               />
-              <RangeSlider
+              <MoneyField
                 label="Current savings"
-                value={currentSavings}
-                min={0}
-                max={1000000}
-                step={5000}
-                displayValue={formatUSD(currentSavings)}
-                onChange={setCurrentSavings}
+                usdValue={currentSavings}
+                usdMin={0}
+                usdMax={1000000}
+                usdStep={5000}
+                onChangeUSD={setCurrentSavings}
               />
-              <RangeSlider
+              <MoneyField
                 label="Monthly contribution"
-                value={monthlyContribution}
-                min={0}
-                max={10000}
-                step={100}
-                displayValue={formatUSD(monthlyContribution)}
-                onChange={setMonthlyContribution}
+                usdValue={monthlyContribution}
+                usdMin={0}
+                usdMax={10000}
+                usdStep={100}
+                onChangeUSD={setMonthlyContribution}
               />
-              <RangeSlider
+              <NumberField
                 label="Expected annual return"
                 value={expectedReturn}
                 min={0}
                 max={15}
                 step={0.5}
-                displayValue={`${expectedReturn.toFixed(1)}%`}
+                suffix="%"
                 onChange={setExpectedReturn}
               />
-              <RangeSlider
+              <NumberField
                 label="Inflation"
                 value={inflation}
                 min={0}
                 max={8}
                 step={0.5}
-                displayValue={`${inflation.toFixed(1)}%`}
+                suffix="%"
                 onChange={setInflation}
               />
-              <RangeSlider
+              <MoneyField
                 label="Monthly spending in retirement"
-                value={monthlyExpense}
-                min={1000}
-                max={20000}
-                step={250}
-                displayValue={formatUSD(monthlyExpense)}
-                onChange={setMonthlyExpense}
+                usdValue={monthlyExpense}
+                usdMin={1000}
+                usdMax={20000}
+                usdStep={250}
+                onChangeUSD={setMonthlyExpense}
               />
             </div>
           </Card>
@@ -195,7 +202,7 @@ export default function RetirementPage() {
                   Projected at {retirementAge}
                 </div>
                 <div className="mer-num mt-1 text-[22px] font-bold text-[#0e9466]">
-                  {formatUSD(result.projectedNestEgg)}
+                  {fmt(result.projectedNestEgg)}
                 </div>
               </div>
               <div>
@@ -203,7 +210,7 @@ export default function RetirementPage() {
                   You&apos;ll need
                 </div>
                 <div className="mer-num mt-1 text-[22px] font-bold">
-                  {formatUSD(result.requiredNestEgg)}
+                  {fmt(result.requiredNestEgg)}
                 </div>
               </div>
             </div>

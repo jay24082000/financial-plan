@@ -67,7 +67,7 @@ export function ProfileBadge({ className = "" }: { className?: string }) {
     >
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-gradient-to-br from-[#2a3340] to-[#3c4a5c] text-[13px] font-bold text-white shadow-[0_1px_3px_rgba(0,0,0,0.15)]"
+        className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-gradient-to-br from-[#13b07a] to-[#0c7a53] text-[13px] font-bold text-white shadow-[0_0_0_3px_rgba(19,176,122,0.18)]"
       >
         {initials(user)}
       </button>
@@ -80,10 +80,28 @@ export function ProfileBadge({ className = "" }: { className?: string }) {
               {user.email}
             </div>
           </div>
-          <form action="/auth/signout" method="post">
+          <Link
+            href="/profile"
+            onClick={() => setOpen(false)}
+            className="block px-4 py-2.5 text-[13.5px] font-semibold text-[#3a4048] transition hover:bg-[#f6f6f2]"
+          >
+            Profile
+          </Link>
+          <Link
+            href="/settings"
+            onClick={() => setOpen(false)}
+            className="block px-4 py-2.5 text-[13.5px] font-semibold text-[#3a4048] transition hover:bg-[#f6f6f2]"
+          >
+            Settings
+          </Link>
+          <form
+            action="/auth/signout"
+            method="post"
+            className="border-t border-[#f1f1ea]"
+          >
             <button
               type="submit"
-              className="w-full px-4 py-3 text-left text-[13.5px] font-semibold text-[#cf4842] transition hover:bg-[#faf6f5]"
+              className="w-full px-4 py-2.5 text-left text-[13.5px] font-semibold text-[#cf4842] transition hover:bg-[#faf6f5]"
             >
               Sign out
             </button>

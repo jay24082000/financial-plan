@@ -27,7 +27,8 @@ export function PillNav() {
     pathname === "/" ||
     pathname.startsWith("/login") ||
     pathname.startsWith("/auth") ||
-    pathname.startsWith("/reset-password")
+    pathname.startsWith("/reset-password") ||
+    pathname.startsWith("/onboarding")
   ) {
     return null;
   }

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { StaxLogo } from "@/components/StaxLogo";
 
 export default function ResetPasswordPage() {
   const supabase = createClient();
@@ -42,9 +43,7 @@ export default function ResetPasswordPage() {
     <div className="flex min-h-screen w-full items-center justify-center bg-[#f6f6f2] px-6 py-10">
       <div className="w-full max-w-[412px]">
         <div className="mb-[26px] flex items-center justify-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[#13b07a]">
-            <div className="h-[13px] w-[13px] -rotate-45 rounded-full border-[2.5px] border-white border-r-transparent" />
-          </div>
+          <StaxLogo size={32} shadow={false} />
           <span className="text-[19px] font-extrabold tracking-tight">
             Stax
           </span>

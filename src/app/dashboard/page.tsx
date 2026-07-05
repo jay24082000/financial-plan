@@ -14,12 +14,8 @@ import { useMounted } from "@/hooks/useMounted";
 import { useUser, displayName } from "@/hooks/useUser";
 import { useSnapshots } from "@/hooks/useSnapshots";
 import { computeTotals, CLASS_ORDER } from "@/lib/portfolio-calc";
-import {
-  formatUSD,
-  formatSignedUSD,
-  formatPercent,
-  formatPrice,
-} from "@/lib/format";
+import { useCurrency } from "@/components/CurrencyProvider";
+import { formatPercent } from "@/lib/format";
 
 const RANGES = ["1W", "1M", "1Y", "ALL"] as const;
 const RANGE_DAYS: Record<(typeof RANGES)[number], number> = {
@@ -45,6 +41,7 @@ function greeting(hour: number): string {
 
 export default function DashboardPage() {
   const mounted = useMounted();
+  const { fmt, fmtSigned, fmtPrice } = useCurrency();
   const user = useUser();
   const { holdings } = useHoldings();
   const { prices, quotesLoading } = useAllPrices();
@@ -133,14 +130,14 @@ export default function DashboardPage() {
               <div>
                 <CardLabel>Total net worth</CardLabel>
                 <div className="mer-num mt-1.5 text-[40px] font-semibold tracking-tight">
-                  {formatUSD(totals.netWorth)}
+                  {fmt(totals.netWorth)}
                 </div>
                 <div className="mt-1.5 flex items-center gap-2.5">
                   <span
                     className="mer-num text-[14px] font-semibold"
                     style={{ color: dayPos ? "#0e9466" : "#cf4842" }}
                   >
-                    {formatSignedUSD(totals.dayChange)}
+                    {fmtSigned(totals.dayChange)}
                   </span>
                   <span
                     className="mer-num rounded-full px-2 py-0.5 text-[12.5px] font-semibold"
@@ -187,14 +184,14 @@ export default function DashboardPage() {
           <div className="flex flex-col gap-[18px]">
             <StatCard
               label="Total gain"
-              value={formatSignedUSD(totals.totalGain)}
+              value={fmtSigned(totals.totalGain)}
               sub={`${formatPercent(totals.totalGainPct)} all time`}
               valueClass={gainPos ? "text-[#0e9466]" : "text-[#cf4842]"}
               subClass={gainPos ? "text-[#0e9466]" : "text-[#cf4842]"}
             />
             <StatCard
               label="Total invested"
-              value={formatUSD(totals.totalCost)}
+              value={fmt(totals.totalCost)}
               sub="Cost basis"
               subClass="text-[#9aa0a8]"
             />
@@ -266,7 +263,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="text-right">
                     <div className="mer-num text-[13px] font-semibold">
-                      {formatUSD(h.value)}
+                      {fmt(h.value)}
                     </div>
                     <div
                       className="mer-num text-[11.5px] font-semibold"
@@ -307,7 +304,7 @@ export default function DashboardPage() {
                   </span>
                   <div className="flex items-center gap-3">
                     <span className="mer-num text-[12.5px] text-[#3a4048]">
-                      {formatPrice(m.price)}
+                      {fmtPrice(m.price)}
                     </span>
                     <span
                       className="mer-num flex items-center gap-0.5 text-[12.5px] font-semibold"

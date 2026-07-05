@@ -10,7 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import type { YearPoint } from "@/lib/finance";
-import { formatCompactUSD, formatUSD } from "@/lib/format";
+import { useCurrency } from "@/components/CurrencyProvider";
 
 export function GrowthChart({
   data,
@@ -19,6 +19,7 @@ export function GrowthChart({
   data: YearPoint[];
   height?: number;
 }) {
+  const { fmt, fmtCompact } = useCurrency();
   return (
     <ResponsiveContainer width="100%" height={height}>
       <AreaChart data={data} margin={{ top: 10, right: 8, bottom: 0, left: 8 }}>
@@ -45,11 +46,11 @@ export function GrowthChart({
           tickLine={false}
           axisLine={false}
           width={48}
-          tickFormatter={(v) => formatCompactUSD(v)}
+          tickFormatter={(v) => fmtCompact(Number(v))}
         />
         <Tooltip
           formatter={(value, name) => [
-            formatUSD(Number(value)),
+            fmt(Number(value)),
             name === "contributed" ? "Your contributions" : "Compound growth",
           ]}
           labelFormatter={(l) => `Year ${l}`}

@@ -51,6 +51,28 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  if (user && !isPublic(path)) {
+    const onboardingPath = path.startsWith("/onboarding");
+    const { data: prof } = await supabase
+      .from("profiles")
+      .select("onboarded")
+      .maybeSingle();
+    const onboarded = !!prof?.onboarded;
+
+    if (!onboarded && !onboardingPath) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/onboarding";
+      url.search = "";
+      return NextResponse.redirect(url);
+    }
+    if (onboarded && onboardingPath) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard";
+      url.search = "";
+      return NextResponse.redirect(url);
+    }
+  }
+
   if (!isPublic(path)) {
     response.headers.set(
       "Cache-Control",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { PillNav } from "@/components/PillNav";
+import { CurrencyProvider } from "@/components/CurrencyProvider";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -31,10 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} ${plexMono.variable}`}>
       <body className="font-[family-name:var(--font-sans)]">
-        <div className="min-h-screen w-full">
-          <PillNav />
-          <main className="mer-scroll min-h-[60vh]">{children}</main>
-        </div>
+        <CurrencyProvider>
+          <div className="min-h-screen w-full">
+            <PillNav />
+            <main className="mer-scroll min-h-[60vh]">{children}</main>
+          </div>
+        </CurrencyProvider>
       </body>
     </html>
   );
